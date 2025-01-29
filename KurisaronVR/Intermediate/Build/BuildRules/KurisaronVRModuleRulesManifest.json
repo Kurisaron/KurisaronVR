@@ -1,0 +1,8 @@
+{
+	"SourceFiles": [
+		"D:\\Github\\KurisaronVR\\KurisaronVR\\Source\\KurisaronVR\\KurisaronVR.Build.cs",
+		"D:\\Github\\KurisaronVR\\KurisaronVR\\Source\\KurisaronVR.Target.cs",
+		"D:\\Github\\KurisaronVR\\KurisaronVR\\Source\\KurisaronVREditor.Target.cs"
+	],
+	"EngineVersion": "5.5.1"
+}

@@ -1,0 +1,24 @@
+{
+    "Version": "1.2",
+    "Data": {
+        "Source": "d:\\github\\kurisaronvr\\kurisaronvr\\intermediate\\build\\win64\\unrealeditor\\inc\\kurisaronvr\\uht\\vrcharacter.gen.cpp",
+        "ProvidedModule": "",
+        "PCH": "d:\\github\\kurisaronvr\\kurisaronvr\\intermediate\\build\\win64\\x64\\kurisaronvreditor\\development\\unrealed\\sharedpch.unrealed.project.valapi.cpp20.inclorderunreal5_3.h.pch",
+        "Includes": [
+            "d:\\github\\kurisaronvr\\kurisaronvr\\intermediate\\build\\win64\\x64\\unrealeditor\\development\\kurisaronvr\\definitions.kurisaronvr.h",
+            "d:\\github\\kurisaronvr\\kurisaronvr\\source\\kurisaronvr\\public\\vrcharacter.h",
+            "d:\\epiclibrary\\ue_5.5\\engine\\source\\runtime\\engine\\classes\\gameframework\\character.h",
+            "d:\\epiclibrary\\ue_5.5\\engine\\source\\runtime\\engine\\classes\\gameframework\\charactermovementreplication.h",
+            "d:\\epiclibrary\\ue_5.5\\engine\\source\\runtime\\net\\core\\public\\net\\core\\nettoken\\nettokenexportcontext.h",
+            "d:\\epiclibrary\\ue_5.5\\engine\\source\\runtime\\experimental\\iris\\core\\public\\iris\\serialization\\irisobjectreferencepackagemap.h",
+            "d:\\epiclibrary\\ue_5.5\\engine\\intermediate\\build\\win64\\unrealeditor\\inc\\iriscore\\uht\\irisobjectreferencepackagemap.generated.h",
+            "d:\\epiclibrary\\ue_5.5\\engine\\intermediate\\build\\win64\\unrealeditor\\inc\\engine\\uht\\charactermovementreplication.generated.h",
+            "d:\\epiclibrary\\ue_5.5\\engine\\source\\runtime\\engine\\classes\\gameframework\\rootmotionsource.h",
+            "d:\\epiclibrary\\ue_5.5\\engine\\intermediate\\build\\win64\\unrealeditor\\inc\\engine\\uht\\rootmotionsource.generated.h",
+            "d:\\epiclibrary\\ue_5.5\\engine\\intermediate\\build\\win64\\unrealeditor\\inc\\engine\\uht\\character.generated.h",
+            "d:\\github\\kurisaronvr\\kurisaronvr\\intermediate\\build\\win64\\unrealeditor\\inc\\kurisaronvr\\uht\\vrcharacter.generated.h"
+        ],
+        "ImportedModules": [],
+        "ImportedHeaderUnits": []
+    }
+}

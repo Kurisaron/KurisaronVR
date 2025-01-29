@@ -1,0 +1,48 @@
+{
+	"version": 1,
+	"changelists": [
+		{
+			"guid": "00000000000000000000000000000000",
+			"description": "Default Uncontrolled Changelist",
+			"files": [
+				"D:/Github/KurisaronVR/KurisaronVR/Content/StarterContent/Architecture/Floor_400x400.uasset",
+				"D:/Github/KurisaronVR/KurisaronVR/Content/Player/BP_VRPlayer.uasset",
+				"D:/Github/KurisaronVR/KurisaronVR/Content/Player/Input/LeftHand/IA_LH_AltUse.uasset",
+				"D:/Github/KurisaronVR/KurisaronVR/Content/Player/Input/LeftHand/IA_LH_Fire.uasset",
+				"D:/Github/KurisaronVR/KurisaronVR/Content/Player/Input/LeftHand/IA_LH_Grab.uasset",
+				"D:/Github/KurisaronVR/KurisaronVR/Content/Player/Input/LeftHand/IA_LH_Grasp.uasset",
+				"D:/Github/KurisaronVR/KurisaronVR/Content/Player/Input/LeftHand/IA_LH_IndexCurl.uasset",
+				"D:/Github/KurisaronVR/KurisaronVR/Content/Player/Input/LeftHand/IA_LH_Point.uasset",
+				"D:/Github/KurisaronVR/KurisaronVR/Content/Player/Input/LeftHand/IA_LH_ThumbUp.uasset",
+				"D:/Github/KurisaronVR/KurisaronVR/Content/Player/Input/LeftHand/IA_LH_Use.uasset",
+				"D:/Github/KurisaronVR/KurisaronVR/Content/Player/Input/LeftHand/IMC_LH_Pose.uasset",
+				"D:/Github/KurisaronVR/KurisaronVR/Content/Player/Input/LeftHand/IMC_LH_Interaction.uasset",
+				"D:/Github/KurisaronVR/KurisaronVR/Content/Player/Input/RightHand/IA_RH_AltUse.uasset",
+				"D:/Github/KurisaronVR/KurisaronVR/Content/Player/Input/RightHand/IA_RH_Fire.uasset",
+				"D:/Github/KurisaronVR/KurisaronVR/Content/Player/Input/RightHand/IA_RH_Grab.uasset",
+				"D:/Github/KurisaronVR/KurisaronVR/Content/Player/Input/RightHand/IA_RH_Grasp.uasset",
+				"D:/Github/KurisaronVR/KurisaronVR/Content/Player/Input/RightHand/IA_RH_IndexCurl.uasset",
+				"D:/Github/KurisaronVR/KurisaronVR/Content/Player/Input/RightHand/IA_RH_Point.uasset",
+				"D:/Github/KurisaronVR/KurisaronVR/Content/Player/Input/RightHand/IA_RH_ThumbUp.uasset",
+				"D:/Github/KurisaronVR/KurisaronVR/Content/Player/Input/RightHand/IA_RH_Use.uasset",
+				"D:/Github/KurisaronVR/KurisaronVR/Content/Player/Input/RightHand/IMC_RH_Interaction.uasset",
+				"D:/Github/KurisaronVR/KurisaronVR/Content/Player/Input/RightHand/IMC_RH_Pose.uasset",
+				"D:/Github/KurisaronVR/KurisaronVR/Content/Player/Input/Locomotion/IA_Move.uasset",
+				"D:/Github/KurisaronVR/KurisaronVR/Content/Player/Input/Locomotion/IA_Turn.uasset",
+				"D:/Github/KurisaronVR/KurisaronVR/Content/Player/Input/Locomotion/IA_Jump.uasset",
+				"D:/Github/KurisaronVR/KurisaronVR/Content/Player/Input/Locomotion/IMC_Locomotion.uasset",
+				"D:/Github/KurisaronVR/KurisaronVR/Content/Player/Input/Locomotion/IA_Dodge.uasset",
+				"D:/Github/KurisaronVR/KurisaronVR/Content/VRTemplate/Blueprints/VRGameMode.uasset",
+				"D:/Github/KurisaronVR/KurisaronVR/Content/Player/Input/Locomotion/IA_Calibrate.uasset",
+				"D:/Github/KurisaronVR/KurisaronVR/Content/VRTemplate/Maps/VRTemplateMap_BuiltData.uasset",
+				"D:/Github/KurisaronVR/KurisaronVR/Content/VRTemplate/Maps/VRTemplateMap.umap",
+				"D:/Github/KurisaronVR/KurisaronVR/Content/Player/Input/Hands/Left/Interaction/IA_LH_Fire.uasset",
+				"D:/Github/KurisaronVR/KurisaronVR/Content/Player/Input/Hands/Left/Interaction/IA_LH_Grab.uasset",
+				"D:/Github/KurisaronVR/KurisaronVR/Content/Player/Input/Hands/Left/Interaction/IA_LH_Use.uasset",
+				"D:/Github/KurisaronVR/KurisaronVR/Content/Player/Input/Hands/Left/Interaction/IA_LH_AltUse.uasset",
+				"D:/Github/KurisaronVR/KurisaronVR/Content/Player/Input/Hands/Left/IS_LeftHand.uasset",
+				"D:/Github/KurisaronVR/KurisaronVR/Content/Player/Input/Hands/Left/Interaction/IMC_LH_Interaction.uasset"
+			]
+		}
+	]
+}

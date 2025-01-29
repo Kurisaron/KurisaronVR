@@ -1,0 +1,14 @@
+{
+	"Targets": [
+		{
+			"Name": "KurisaronVR",
+			"Path": "..\\Source\\KurisaronVR.Target.cs",
+			"Type": "Game"
+		},
+		{
+			"Name": "KurisaronVREditor",
+			"Path": "..\\Source\\KurisaronVREditor.Target.cs",
+			"Type": "Editor"
+		}
+	]
+}

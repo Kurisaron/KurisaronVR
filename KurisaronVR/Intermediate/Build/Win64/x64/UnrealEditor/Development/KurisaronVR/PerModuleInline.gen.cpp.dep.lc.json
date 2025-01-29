@@ -1,0 +1,14 @@
+{
+    "Version": "1.2",
+    "Data": {
+        "Source": "d:\\github\\kurisaronvr\\kurisaronvr\\intermediate\\build\\win64\\x64\\unrealeditor\\development\\kurisaronvr\\permoduleinline.gen.cpp",
+        "ProvidedModule": "",
+        "PCH": "d:\\github\\kurisaronvr\\kurisaronvr\\intermediate\\build\\win64\\x64\\kurisaronvreditor\\development\\unrealed\\sharedpch.unrealed.project.valapi.cpp20.inclorderunreal5_3.h.pch",
+        "Includes": [
+            "d:\\github\\kurisaronvr\\kurisaronvr\\intermediate\\build\\win64\\x64\\unrealeditor\\development\\kurisaronvr\\definitions.kurisaronvr.h",
+            "d:\\epiclibrary\\ue_5.5\\engine\\source\\runtime\\core\\public\\hal\\permoduleinline.inl"
+        ],
+        "ImportedModules": [],
+        "ImportedHeaderUnits": []
+    }
+}

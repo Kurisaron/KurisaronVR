@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="17.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <None Include="..\..\KurisaronVR.uproject" />
+    <Filter Include="Source">
+      <UniqueIdentifier>{F31BBDD1-B3E8-3BCC-9652-680E16935819}</UniqueIdentifier>
+    </Filter>
+    <None Include="..\..\Source\KurisaronVR.Target.cs">
+      <Filter>Source</Filter>
+    </None>
+    <None Include="..\..\Source\KurisaronVREditor.Target.cs">
+      <Filter>Source</Filter>
+    </None>
+    <None Include="..\..\.vsconfig" />
+    <Filter Include="Config">
+      <UniqueIdentifier>{FA535FFB-25E1-3D20-B416-52F9BE21E06E}</UniqueIdentifier>
+    </Filter>
+    <None Include="..\..\Config\DefaultEditor.ini">
+      <Filter>Config</Filter>
+    </None>
+    <None Include="..\..\Config\DefaultEngine.ini">
+      <Filter>Config</Filter>
+    </None>
+    <None Include="..\..\Config\DefaultGame.ini">
+      <Filter>Config</Filter>
+    </None>
+    <None Include="..\..\Config\DefaultInput.ini">
+      <Filter>Config</Filter>
+    </None>
+    <Filter Include="Config\Mac">
+      <UniqueIdentifier>{C34A53DE-7A2E-391F-9292-A84444E41B18}</UniqueIdentifier>
+    </Filter>
+    <None Include="..\..\Config\Mac\MacEngine.ini">
+      <Filter>Config\Mac</Filter>
+    </None>
+    <Filter Include="Config\VisionOS">
+      <UniqueIdentifier>{54FB6262-BE34-3FD1-8608-DAEF798947B6}</UniqueIdentifier>
+    </Filter>
+    <None Include="..\..\Config\VisionOS\VisionOSEngine.ini">
+      <Filter>Config\VisionOS</Filter>
+    </None>
+    <Filter Include="Source\KurisaronVR">
+      <UniqueIdentifier>{547CDA4F-23F0-3F4E-B266-001D03581D57}</UniqueIdentifier>
+    </Filter>
+    <None Include="..\..\Source\KurisaronVR\KurisaronVR.Build.cs">
+      <Filter>Source\KurisaronVR</Filter>
+    </None>
+    <ClCompile Include="..\..\Source\KurisaronVR\KurisaronVR.cpp">
+      <Filter>Source\KurisaronVR</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Source\KurisaronVR\KurisaronVR.h">
+      <Filter>Source\KurisaronVR</Filter>
+    </ClCompile>
+    <Filter Include="Source\KurisaronVR\Private">
+      <UniqueIdentifier>{60D4CDC2-7659-3C5A-8FAE-2339DF4F3C05}</UniqueIdentifier>
+    </Filter>
+    <ClCompile Include="..\..\Source\KurisaronVR\Private\HandControllerComponent.cpp">
+      <Filter>Source\KurisaronVR\Private</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Source\KurisaronVR\Private\LocomotionComponent.cpp">
+      <Filter>Source\KurisaronVR\Private</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Source\KurisaronVR\Private\VRCharacter.cpp">
+      <Filter>Source\KurisaronVR\Private</Filter>
+    </ClCompile>
+    <Filter Include="Source\KurisaronVR\Public">
+      <UniqueIdentifier>{339458EA-2D43-30D9-8D18-8774FC0B2404}</UniqueIdentifier>
+    </Filter>
+    <ClCompile Include="..\..\Source\KurisaronVR\Public\HandControllerComponent.h">
+      <Filter>Source\KurisaronVR\Public</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Source\KurisaronVR\Public\LocomotionComponent.h">
+      <Filter>Source\KurisaronVR\Public</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Source\KurisaronVR\Public\VRCharacter.h">
+      <Filter>Source\KurisaronVR\Public</Filter>
+    </ClCompile>
+  </ItemGroup>
+</Project>
