@@ -99,9 +99,39 @@ struct Z_Construct_UClass_ULocomotionComponent_Statics
 		{ "ToolTip", "Height offset added so capsule accurately matches player's height (above the HMD) during roomscale tracking" },
 #endif
 	};
+	static constexpr UECodeGen_Private::FMetaDataPairParam NewProp_CrouchThresholdRatio_MetaData[] = {
+		{ "AllowPrivateAccess", "true" },
+		{ "Category", "Locomotion|Roomscale|Height" },
+		{ "ClampMax", "1.0" },
+		{ "ClampMin", "0.0" },
+#if !UE_BUILD_SHIPPING
+		{ "Comment", "// Ratio to the player's max height that helps evaluate whether the player is crouching. If the current height is below the value equal to the given ratio multiplied against the max height, the player is considered crouching\n" },
+#endif
+		{ "ModuleRelativePath", "Public/LocomotionComponent.h" },
+#if !UE_BUILD_SHIPPING
+		{ "ToolTip", "Ratio to the player's max height that helps evaluate whether the player is crouching. If the current height is below the value equal to the given ratio multiplied against the max height, the player is considered crouching" },
+#endif
+		{ "UIMax", "1.0" },
+		{ "UIMin", "0.0" },
+	};
+	static constexpr UECodeGen_Private::FMetaDataPairParam NewProp_ProneThresholdRatio_MetaData[] = {
+		{ "AllowPrivateAccess", "true" },
+		{ "Category", "Locomotion|Roomscale|Height" },
+		{ "ClampMax", "1.0" },
+		{ "ClampMin", "0.0" },
+#if !UE_BUILD_SHIPPING
+		{ "Comment", "// Ratio to the player's max height that helps evaluate whether the player is prone. If the current height is below the value equal to the given ratio multiplied against the max height, the player is considered prone\n" },
+#endif
+		{ "ModuleRelativePath", "Public/LocomotionComponent.h" },
+#if !UE_BUILD_SHIPPING
+		{ "ToolTip", "Ratio to the player's max height that helps evaluate whether the player is prone. If the current height is below the value equal to the given ratio multiplied against the max height, the player is considered prone" },
+#endif
+		{ "UIMax", "1.0" },
+		{ "UIMin", "0.0" },
+	};
 	static constexpr UECodeGen_Private::FMetaDataPairParam NewProp_bDebugRoomscale_MetaData[] = {
 		{ "AllowPrivateAccess", "true" },
-		{ "Category", "Locomotion|Roomscale" },
+		{ "Category", "Locomotion|Roomscale|Debug" },
 #if !UE_BUILD_SHIPPING
 		{ "Comment", "// True = Display in-game debugging elements to more easily understand roomscale operations\n" },
 #endif
@@ -109,6 +139,11 @@ struct Z_Construct_UClass_ULocomotionComponent_Statics
 #if !UE_BUILD_SHIPPING
 		{ "ToolTip", "True = Display in-game debugging elements to more easily understand roomscale operations" },
 #endif
+	};
+	static constexpr UECodeGen_Private::FMetaDataPairParam NewProp_DodgePower_MetaData[] = {
+		{ "AllowPrivateAccess", "true" },
+		{ "Category", "Locomotion|Dodging" },
+		{ "ModuleRelativePath", "Public/LocomotionComponent.h" },
 	};
 #endif // WITH_METADATA
 	static const UECodeGen_Private::FObjectPropertyParams NewProp_LocomotionInputMap;
@@ -120,8 +155,11 @@ struct Z_Construct_UClass_ULocomotionComponent_Statics
 	static const UECodeGen_Private::FStructPropertyParams NewProp_MoveInput;
 	static const UECodeGen_Private::FFloatPropertyParams NewProp_MaxHeight;
 	static const UECodeGen_Private::FFloatPropertyParams NewProp_HMD_HeightOffset;
+	static const UECodeGen_Private::FFloatPropertyParams NewProp_CrouchThresholdRatio;
+	static const UECodeGen_Private::FFloatPropertyParams NewProp_ProneThresholdRatio;
 	static void NewProp_bDebugRoomscale_SetBit(void* Obj);
 	static const UECodeGen_Private::FBoolPropertyParams NewProp_bDebugRoomscale;
+	static const UECodeGen_Private::FFloatPropertyParams NewProp_DodgePower;
 	static const UECodeGen_Private::FPropertyParamsBase* const PropPointers[];
 	static UObject* (*const DependentSingletons[])();
 	static constexpr FCppClassTypeInfoStatic StaticCppClassTypeInfo = {
@@ -138,11 +176,14 @@ const UECodeGen_Private::FObjectPropertyParams Z_Construct_UClass_ULocomotionCom
 const UECodeGen_Private::FStructPropertyParams Z_Construct_UClass_ULocomotionComponent_Statics::NewProp_MoveInput = { "MoveInput", nullptr, (EPropertyFlags)0x0040000000020015, UECodeGen_Private::EPropertyGenFlags::Struct, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(ULocomotionComponent, MoveInput), Z_Construct_UScriptStruct_FVector2D, METADATA_PARAMS(UE_ARRAY_COUNT(NewProp_MoveInput_MetaData), NewProp_MoveInput_MetaData) };
 const UECodeGen_Private::FFloatPropertyParams Z_Construct_UClass_ULocomotionComponent_Statics::NewProp_MaxHeight = { "MaxHeight", nullptr, (EPropertyFlags)0x0040000000010015, UECodeGen_Private::EPropertyGenFlags::Float, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(ULocomotionComponent, MaxHeight), METADATA_PARAMS(UE_ARRAY_COUNT(NewProp_MaxHeight_MetaData), NewProp_MaxHeight_MetaData) };
 const UECodeGen_Private::FFloatPropertyParams Z_Construct_UClass_ULocomotionComponent_Statics::NewProp_HMD_HeightOffset = { "HMD_HeightOffset", nullptr, (EPropertyFlags)0x0040000000010015, UECodeGen_Private::EPropertyGenFlags::Float, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(ULocomotionComponent, HMD_HeightOffset), METADATA_PARAMS(UE_ARRAY_COUNT(NewProp_HMD_HeightOffset_MetaData), NewProp_HMD_HeightOffset_MetaData) };
+const UECodeGen_Private::FFloatPropertyParams Z_Construct_UClass_ULocomotionComponent_Statics::NewProp_CrouchThresholdRatio = { "CrouchThresholdRatio", nullptr, (EPropertyFlags)0x0040000000010015, UECodeGen_Private::EPropertyGenFlags::Float, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(ULocomotionComponent, CrouchThresholdRatio), METADATA_PARAMS(UE_ARRAY_COUNT(NewProp_CrouchThresholdRatio_MetaData), NewProp_CrouchThresholdRatio_MetaData) };
+const UECodeGen_Private::FFloatPropertyParams Z_Construct_UClass_ULocomotionComponent_Statics::NewProp_ProneThresholdRatio = { "ProneThresholdRatio", nullptr, (EPropertyFlags)0x0040000000010015, UECodeGen_Private::EPropertyGenFlags::Float, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(ULocomotionComponent, ProneThresholdRatio), METADATA_PARAMS(UE_ARRAY_COUNT(NewProp_ProneThresholdRatio_MetaData), NewProp_ProneThresholdRatio_MetaData) };
 void Z_Construct_UClass_ULocomotionComponent_Statics::NewProp_bDebugRoomscale_SetBit(void* Obj)
 {
 	((ULocomotionComponent*)Obj)->bDebugRoomscale = 1;
 }
-const UECodeGen_Private::FBoolPropertyParams Z_Construct_UClass_ULocomotionComponent_Statics::NewProp_bDebugRoomscale = { "bDebugRoomscale", nullptr, (EPropertyFlags)0x0040040000010015, UECodeGen_Private::EPropertyGenFlags::Bool | UECodeGen_Private::EPropertyGenFlags::NativeBool, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, sizeof(bool), sizeof(ULocomotionComponent), &Z_Construct_UClass_ULocomotionComponent_Statics::NewProp_bDebugRoomscale_SetBit, METADATA_PARAMS(UE_ARRAY_COUNT(NewProp_bDebugRoomscale_MetaData), NewProp_bDebugRoomscale_MetaData) };
+const UECodeGen_Private::FBoolPropertyParams Z_Construct_UClass_ULocomotionComponent_Statics::NewProp_bDebugRoomscale = { "bDebugRoomscale", nullptr, (EPropertyFlags)0x0040000000010015, UECodeGen_Private::EPropertyGenFlags::Bool | UECodeGen_Private::EPropertyGenFlags::NativeBool, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, sizeof(bool), sizeof(ULocomotionComponent), &Z_Construct_UClass_ULocomotionComponent_Statics::NewProp_bDebugRoomscale_SetBit, METADATA_PARAMS(UE_ARRAY_COUNT(NewProp_bDebugRoomscale_MetaData), NewProp_bDebugRoomscale_MetaData) };
+const UECodeGen_Private::FFloatPropertyParams Z_Construct_UClass_ULocomotionComponent_Statics::NewProp_DodgePower = { "DodgePower", nullptr, (EPropertyFlags)0x0040000000010015, UECodeGen_Private::EPropertyGenFlags::Float, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(ULocomotionComponent, DodgePower), METADATA_PARAMS(UE_ARRAY_COUNT(NewProp_DodgePower_MetaData), NewProp_DodgePower_MetaData) };
 const UECodeGen_Private::FPropertyParamsBase* const Z_Construct_UClass_ULocomotionComponent_Statics::PropPointers[] = {
 	(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_ULocomotionComponent_Statics::NewProp_LocomotionInputMap,
 	(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_ULocomotionComponent_Statics::NewProp_MoveAction,
@@ -153,7 +194,10 @@ const UECodeGen_Private::FPropertyParamsBase* const Z_Construct_UClass_ULocomoti
 	(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_ULocomotionComponent_Statics::NewProp_MoveInput,
 	(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_ULocomotionComponent_Statics::NewProp_MaxHeight,
 	(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_ULocomotionComponent_Statics::NewProp_HMD_HeightOffset,
+	(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_ULocomotionComponent_Statics::NewProp_CrouchThresholdRatio,
+	(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_ULocomotionComponent_Statics::NewProp_ProneThresholdRatio,
 	(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_ULocomotionComponent_Statics::NewProp_bDebugRoomscale,
+	(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_ULocomotionComponent_Statics::NewProp_DodgePower,
 };
 static_assert(UE_ARRAY_COUNT(Z_Construct_UClass_ULocomotionComponent_Statics::PropPointers) < 2048);
 UObject* (*const Z_Construct_UClass_ULocomotionComponent_Statics::DependentSingletons[])() = {
@@ -196,10 +240,10 @@ ULocomotionComponent::~ULocomotionComponent() {}
 struct Z_CompiledInDeferFile_FID_Github_KurisaronVR_KurisaronVR_Source_KurisaronVR_Public_LocomotionComponent_h_Statics
 {
 	static constexpr FClassRegisterCompiledInInfo ClassInfo[] = {
-		{ Z_Construct_UClass_ULocomotionComponent, ULocomotionComponent::StaticClass, TEXT("ULocomotionComponent"), &Z_Registration_Info_UClass_ULocomotionComponent, CONSTRUCT_RELOAD_VERSION_INFO(FClassReloadVersionInfo, sizeof(ULocomotionComponent), 2061897168U) },
+		{ Z_Construct_UClass_ULocomotionComponent, ULocomotionComponent::StaticClass, TEXT("ULocomotionComponent"), &Z_Registration_Info_UClass_ULocomotionComponent, CONSTRUCT_RELOAD_VERSION_INFO(FClassReloadVersionInfo, sizeof(ULocomotionComponent), 1992652252U) },
 	};
 };
-static FRegisterCompiledInInfo Z_CompiledInDeferFile_FID_Github_KurisaronVR_KurisaronVR_Source_KurisaronVR_Public_LocomotionComponent_h_126221946(TEXT("/Script/KurisaronVR"),
+static FRegisterCompiledInInfo Z_CompiledInDeferFile_FID_Github_KurisaronVR_KurisaronVR_Source_KurisaronVR_Public_LocomotionComponent_h_2866800987(TEXT("/Script/KurisaronVR"),
 	Z_CompiledInDeferFile_FID_Github_KurisaronVR_KurisaronVR_Source_KurisaronVR_Public_LocomotionComponent_h_Statics::ClassInfo, UE_ARRAY_COUNT(Z_CompiledInDeferFile_FID_Github_KurisaronVR_KurisaronVR_Source_KurisaronVR_Public_LocomotionComponent_h_Statics::ClassInfo),
 	nullptr, 0,
 	nullptr, 0);

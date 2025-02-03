@@ -54,7 +54,13 @@
     <Filter Include="Source\KurisaronVR\Private">
       <UniqueIdentifier>{60D4CDC2-7659-3C5A-8FAE-2339DF4F3C05}</UniqueIdentifier>
     </Filter>
+    <ClCompile Include="..\..\Source\KurisaronVR\Private\GripComponent.cpp">
+      <Filter>Source\KurisaronVR\Private</Filter>
+    </ClCompile>
     <ClCompile Include="..\..\Source\KurisaronVR\Private\HandControllerComponent.cpp">
+      <Filter>Source\KurisaronVR\Private</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Source\KurisaronVR\Private\Item.cpp">
       <Filter>Source\KurisaronVR\Private</Filter>
     </ClCompile>
     <ClCompile Include="..\..\Source\KurisaronVR\Private\LocomotionComponent.cpp">
@@ -66,7 +72,13 @@
     <Filter Include="Source\KurisaronVR\Public">
       <UniqueIdentifier>{339458EA-2D43-30D9-8D18-8774FC0B2404}</UniqueIdentifier>
     </Filter>
+    <ClCompile Include="..\..\Source\KurisaronVR\Public\GripComponent.h">
+      <Filter>Source\KurisaronVR\Public</Filter>
+    </ClCompile>
     <ClCompile Include="..\..\Source\KurisaronVR\Public\HandControllerComponent.h">
+      <Filter>Source\KurisaronVR\Public</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Source\KurisaronVR\Public\Item.h">
       <Filter>Source\KurisaronVR\Public</Filter>
     </ClCompile>
     <ClCompile Include="..\..\Source\KurisaronVR\Public\LocomotionComponent.h">

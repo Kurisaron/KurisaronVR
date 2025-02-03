@@ -42,11 +42,14 @@ AVRCharacter::AVRCharacter(const FObjectInitializer& ObjectInitializer) : Super(
 	RightHandHapticCollider = CreateDefaultSubobject<UBoxComponent>(HandHapticColliderComponentNames[1]);
 	LeftHandHapticConstraint = CreateDefaultSubobject<UPhysicsConstraintComponent>(HandHapticConstraintComponentNames[0]);
 	RightHandHapticConstraint = CreateDefaultSubobject<UPhysicsConstraintComponent>(HandHapticConstraintComponentNames[1]);
+	LeftHandGrabConstraint = CreateDefaultSubobject<UPhysicsConstraintComponent>(HandGrabConstraintComponentNames[0]);
+	RightHandGrabConstraint = CreateDefaultSubobject<UPhysicsConstraintComponent>(HandGrabConstraintComponentNames[1]);
 	// Perform setup operations on hand components
 	UHandControllerComponent* Hands[2] = { LeftHandController, RightHandController };
 	USphereComponent* HapticTargets[2] = { LeftHandHapticTarget, RightHandHapticTarget };
 	UBoxComponent* HapticColliders[2] = { LeftHandHapticCollider, RightHandHapticCollider };
 	UPhysicsConstraintComponent* HapticConstraints[2] = { LeftHandHapticConstraint, RightHandHapticConstraint };
+	UPhysicsConstraintComponent* GrabConstraints[2] = { LeftHandGrabConstraint, RightHandGrabConstraint };
 	for (int i = 0; i < 2; i++)
 	{
 		if (UHandControllerComponent* Hand = Hands[i])
@@ -72,24 +75,40 @@ AVRCharacter::AVRCharacter(const FObjectInitializer& ObjectInitializer) : Super(
 					Collider->SetHiddenInGame(false);
 					Collider->SetLineThickness(0.5f);
 
-					if (UPhysicsConstraintComponent* Constraint = HapticConstraints[i])
+					if (UPhysicsConstraintComponent* HapticConstraint = HapticConstraints[i])
 					{
 						// Perform haptic collision physics constraint setup
-						Constraint->SetupAttachment(Target);
-						Constraint->SetRelativeRotation(FRotator(-90.0, 0.0, 0.0));
-						Constraint->SetUsingAbsoluteScale(true);
-						Constraint->SetDisableCollision(true);
-						Constraint->SetLinearXLimit(ELinearConstraintMotion::LCM_Free, 0.0f);
-						Constraint->SetLinearYLimit(ELinearConstraintMotion::LCM_Free, 0.0f);
-						Constraint->SetLinearZLimit(ELinearConstraintMotion::LCM_Free, 0.0f);
-						Constraint->SetAngularSwing1Limit(EAngularConstraintMotion::ACM_Locked, 0.0f);
-						Constraint->SetAngularSwing2Limit(EAngularConstraintMotion::ACM_Locked, 0.0f);
-						Constraint->SetAngularTwistLimit(EAngularConstraintMotion::ACM_Locked, 0.0f);
-						FConstraintInstance* ConstraintInstance = &Constraint->ConstraintInstance;
+						HapticConstraint->SetupAttachment(Target);
+						HapticConstraint->SetRelativeRotation(FRotator(-90.0, 0.0, 0.0));
+						HapticConstraint->SetUsingAbsoluteScale(true);
+						HapticConstraint->SetDisableCollision(true);
+						HapticConstraint->SetLinearXLimit(ELinearConstraintMotion::LCM_Free, 0.0f);
+						HapticConstraint->SetLinearYLimit(ELinearConstraintMotion::LCM_Free, 0.0f);
+						HapticConstraint->SetLinearZLimit(ELinearConstraintMotion::LCM_Free, 0.0f);
+						HapticConstraint->SetAngularSwing1Limit(EAngularConstraintMotion::ACM_Locked, 0.0f);
+						HapticConstraint->SetAngularSwing2Limit(EAngularConstraintMotion::ACM_Locked, 0.0f);
+						HapticConstraint->SetAngularTwistLimit(EAngularConstraintMotion::ACM_Locked, 0.0f);
+						FConstraintInstance* ConstraintInstance = &HapticConstraint->ConstraintInstance;
 						ConstraintInstance->SetLinearPositionDrive(true, true, true);
 						ConstraintInstance->SetLinearVelocityDrive(true, true, true);
 						ConstraintInstance->SetLinearDriveParams(10000.0f, 100.0f, 0.0f);
-						Constraint->SetConstrainedComponents(Target, FName(), Collider, FName());
+						HapticConstraint->SetConstrainedComponents(Target, FName(), Collider, FName());
+					}
+
+					if (UPhysicsConstraintComponent* GrabConstraint = GrabConstraints[i])
+					{
+						// Perform grab physics constraint setup
+						GrabConstraint->SetupAttachment(Collider);
+						GrabConstraint->SetRelativeRotation(FRotator(0.0, i == 0 ? 90.0 : -90.0, 0.0));
+						GrabConstraint->SetUsingAbsoluteScale(true);
+						GrabConstraint->SetDisableCollision(true);
+						GrabConstraint->SetLinearXLimit(ELinearConstraintMotion::LCM_Locked, 0.0f);
+						GrabConstraint->SetLinearYLimit(ELinearConstraintMotion::LCM_Locked, 0.0f);
+						GrabConstraint->SetLinearZLimit(ELinearConstraintMotion::LCM_Locked, 0.0f);
+						GrabConstraint->SetAngularSwing1Limit(EAngularConstraintMotion::ACM_Locked, 0.0f);
+						GrabConstraint->SetAngularSwing2Limit(EAngularConstraintMotion::ACM_Locked, 0.0f);
+						GrabConstraint->SetAngularTwistLimit(EAngularConstraintMotion::ACM_Locked, 0.0f);
+						GrabConstraint->SetConstrainedComponents(Collider, FName(), nullptr, FName());
 					}
 				}
 			}

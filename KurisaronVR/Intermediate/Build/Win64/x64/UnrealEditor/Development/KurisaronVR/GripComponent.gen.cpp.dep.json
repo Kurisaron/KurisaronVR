@@ -1,0 +1,15 @@
+{
+    "Version": "1.2",
+    "Data": {
+        "Source": "d:\\github\\kurisaronvr\\kurisaronvr\\intermediate\\build\\win64\\unrealeditor\\inc\\kurisaronvr\\uht\\gripcomponent.gen.cpp",
+        "ProvidedModule": "",
+        "PCH": "d:\\github\\kurisaronvr\\kurisaronvr\\intermediate\\build\\win64\\x64\\kurisaronvreditor\\development\\unrealed\\sharedpch.unrealed.project.valapi.cpp20.inclorderunreal5_3.h.pch",
+        "Includes": [
+            "d:\\github\\kurisaronvr\\kurisaronvr\\intermediate\\build\\win64\\x64\\unrealeditor\\development\\kurisaronvr\\definitions.kurisaronvr.h",
+            "d:\\github\\kurisaronvr\\kurisaronvr\\source\\kurisaronvr\\public\\gripcomponent.h",
+            "d:\\github\\kurisaronvr\\kurisaronvr\\intermediate\\build\\win64\\unrealeditor\\inc\\kurisaronvr\\uht\\gripcomponent.generated.h"
+        ],
+        "ImportedModules": [],
+        "ImportedHeaderUnits": []
+    }
+}

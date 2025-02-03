@@ -7,12 +7,20 @@
 ULocomotionComponent::ULocomotionComponent(const FObjectInitializer& ObjectInitializer) : Super(ObjectInitializer)
 {
 	bOrientRotationToMovement = false;
-	JumpZVelocity = 1000.f;
+	JumpZVelocity = 800.f;
 	AirControl = 0.35f;
 	MaxWalkSpeed = 600.f;
 	MinAnalogWalkSpeed = 20.f;
 	BrakingDecelerationWalking = 2000.f;
 	BrakingDecelerationFalling = 1500.0f;
+
+	MaxHeight = 180.0f;
+	HMD_HeightOffset = 10.0f;
+	CrouchThresholdRatio = 0.6f;
+	ProneThresholdRatio = 0.4f;
+	bDebugRoomscale = true;
+
+	DodgePower = 10000.0f;
 }
 
 void ULocomotionComponent::SetupPlayerInput(UEnhancedInputLocalPlayerSubsystem* Subsystem, UEnhancedInputComponent* EnhancedInput)
@@ -39,6 +47,7 @@ void ULocomotionComponent::SetupPlayerInput(UEnhancedInputLocalPlayerSubsystem* 
 		EnhancedInput->BindAction(DodgeAction, ETriggerEvent::Completed, this, &ULocomotionComponent::Dodge_Completed);
 		// Bind subscriber to Calibrate Action
 		EnhancedInput->BindAction(CalibrateAction, ETriggerEvent::Triggered, this, &ULocomotionComponent::Calibrate);
+		
 	}
 }
 
@@ -70,7 +79,7 @@ void ULocomotionComponent::TickRoomscaleTracking()
 		VR_Origin->AddWorldOffset(-LocationDelta);
 
 		// Update height scaling
-		float HeightDelta = CameraTransform.GetLocation().Z + HMD_HeightOffset - OriginTransform.GetLocation().Z;
+		float HeightDelta = GetCurrentHeight();
 		float NewHalfHeight = HeightDelta / 2;
 		LocomotionCapsule->SetCapsuleHalfHeight(NewHalfHeight, true);
 		VR_Origin->SetRelativeLocation(FVector(VR_Origin->GetRelativeLocation().X, VR_Origin->GetRelativeLocation().Y, -NewHalfHeight));
@@ -162,7 +171,8 @@ void ULocomotionComponent::Jump_Started(const FInputActionValue& Value)
 
 	if (AVRCharacter* VR_Character = Cast<AVRCharacter>(GetOwner()))
 	{
-		VR_Character->Jump();
+		if (!Prone())
+			VR_Character->Jump();
 	}
 }
 
@@ -230,8 +240,7 @@ void ULocomotionComponent::DefaultDodge(bool Started)
 
 					FVector2D DodgeInput = MoveInput != FVector2D::ZeroVector ? MoveInput : FVector2D(0, -1);
 					FVector DodgeVector = (ForwardDirection * DodgeInput.Y) + (RightDirection * DodgeInput.X);
-					DodgeVector *= 10.0f;
-					AddImpulse(DodgeVector, true);
+					AddImpulse(DodgeVector * DodgePower, true);
 				}
 				else
 					UE_LOG(LogTemp, Warning, TEXT("Locomotion component attempted to dodge, but its owner VR Character does not have a HMD camera"));
@@ -242,4 +251,33 @@ void ULocomotionComponent::DefaultDodge(bool Started)
 		else
 			UE_LOG(LogTemp, Warning, TEXT("Locomotion component attempted to dodge, but it is not attached to a VR Character"));
 	}
+}
+
+float ULocomotionComponent::GetCurrentHeight(UCameraComponent* HMD, USceneComponent* Floor)
+{
+	if (AVRCharacter* VR_Character = Cast<AVRCharacter>(GetOwner()))
+	{
+		HMD = HMD != nullptr ? HMD : VR_Character->GetHMDCamera();
+		Floor = Floor != nullptr ? Floor : VR_Character->GetVROrigin();
+
+		return HMD->GetComponentLocation().Z + HMD_HeightOffset - Floor->GetComponentLocation().Z;
+	}
+	else
+		return 0.0f;
+}
+
+bool ULocomotionComponent::Standing()
+{
+	return (CrouchThresholdRatio * MaxHeight) < GetCurrentHeight();
+}
+
+bool ULocomotionComponent::Crouching()
+{
+	float CurrentHeight = GetCurrentHeight();
+	return (ProneThresholdRatio * MaxHeight) < CurrentHeight && CurrentHeight < (CrouchThresholdRatio * MaxHeight);
+}
+
+bool ULocomotionComponent::Prone()
+{
+	return GetCurrentHeight() < (ProneThresholdRatio * MaxHeight);
 }

@@ -62,6 +62,13 @@ class KURISARONVR_API AVRCharacter : public ACharacter
 	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "VR|Hands|Haptic Collision", meta = (AllowPrivateAccess = "true"))
 	TObjectPtr<UPhysicsConstraintComponent> RightHandHapticConstraint;
 
+	// Physics constraint used by the left hand to grab
+	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "VR|Hands|Grabbing", meta = (AllowPrivateAccess = "true"))
+	TObjectPtr<UPhysicsConstraintComponent> LeftHandGrabConstraint;
+	// Physics constraint used by the right hand to grab
+	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "VR|Hands|Grabbing", meta = (AllowPrivateAccess = "true"))
+	TObjectPtr<UPhysicsConstraintComponent> RightHandGrabConstraint;
+
 protected:
 
 	const FName VR_OriginComponentName = TEXT("VROrigin");
@@ -70,6 +77,7 @@ protected:
 	const FName HandHapticTargetComponentNames[2] = { TEXT("LH_HapticTarget"), TEXT("RH_HapticTarget") };
 	const FName HandHapticColliderComponentNames[2] = { TEXT("LH_HapticCollider"), TEXT("RH_HapticCollider") };
 	const FName HandHapticConstraintComponentNames[2] = { TEXT("LH_HapticConstraint"), TEXT("RH_HapticConstraint") };
+	const FName HandGrabConstraintComponentNames[2] = { TEXT("LH_GrabConstraint"), TEXT("RH_GrabConstraint") };
 
 public:
 	

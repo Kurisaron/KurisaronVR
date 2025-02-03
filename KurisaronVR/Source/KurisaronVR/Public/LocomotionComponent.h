@@ -37,13 +37,22 @@ class KURISARONVR_API ULocomotionComponent : public UCharacterMovementComponent
 
 	// Current value for the player's max height. Used to evaluate standing/crouching/prone state based on head's current distance above the tracking origin
 	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category = "Locomotion|Roomscale|Height", meta = (AllowPrivateAccess = "true"))
-	float MaxHeight = 180.0f;
+	float MaxHeight;
 	// Height offset added so capsule accurately matches player's height (above the HMD) during roomscale tracking
 	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category = "Locomotion|Roomscale|Height", meta = (AllowPrivateAccess = "true"))
-	float HMD_HeightOffset = 10.0f;
+	float HMD_HeightOffset;
+	// Ratio to the player's max height that helps evaluate whether the player is crouching. If the current height is below the value equal to the given ratio multiplied against the max height, the player is considered crouching
+	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category = "Locomotion|Roomscale|Height", meta = (AllowPrivateAccess = "true", ClampMin = "0.0", ClampMax = "1.0", UIMin = "0.0", UIMax = "1.0"))
+	float CrouchThresholdRatio;
+	// Ratio to the player's max height that helps evaluate whether the player is prone. If the current height is below the value equal to the given ratio multiplied against the max height, the player is considered prone
+	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category = "Locomotion|Roomscale|Height", meta = (AllowPrivateAccess = "true", ClampMin = "0.0", ClampMax = "1.0", UIMin = "0.0", UIMax = "1.0"))
+	float ProneThresholdRatio;
 	// True = Display in-game debugging elements to more easily understand roomscale operations
-	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category = "Locomotion|Roomscale", AdvancedDisplay, meta = (AllowPrivateAccess = "true"))
-	bool bDebugRoomscale = true;
+	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category = "Locomotion|Roomscale|Debug", meta = (AllowPrivateAccess = "true"))
+	bool bDebugRoomscale;
+
+	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category = "Locomotion|Dodging", meta = (AllowPrivateAccess = "true"))
+	float DodgePower;
 
 public:
 
@@ -80,12 +89,18 @@ protected:
 	// Subscribed to Calibrate Input Action to set the max height for the character
 	void Calibrate(const FInputActionValue& Value);
 
-
 	/**
-	 * INPUT ENCAPSULATES
+	 * INPUT ENCAPSULATES (Functions utilized by above subscribers to perform operations)
 	*/
 
 	virtual void DefaultDodge(bool Started);
 
+public:
+
+	virtual float GetCurrentHeight(UCameraComponent* HMD = nullptr, USceneComponent* Floor = nullptr);
+
+	virtual bool Standing();
+	virtual bool Crouching();
+	virtual bool Prone();
 
 };

@@ -17,13 +17,13 @@ void EmptyLinkFunctionForGeneratedCodeKurisaronVR_init() {}
 				nullptr,
 				0,
 				PKG_CompiledIn | 0x00000000,
-				0xA38A328D,
-				0x0B0ECE87,
+				0x14E9E2B5,
+				0x2513B5F7,
 				METADATA_PARAMS(0, nullptr)
 			};
 			UECodeGen_Private::ConstructUPackage(Z_Registration_Info_UPackage__Script_KurisaronVR.OuterSingleton, PackageParams);
 		}
 		return Z_Registration_Info_UPackage__Script_KurisaronVR.OuterSingleton;
 	}
-	static FRegisterCompiledInInfo Z_CompiledInDeferPackage_UPackage__Script_KurisaronVR(Z_Construct_UPackage__Script_KurisaronVR, TEXT("/Script/KurisaronVR"), Z_Registration_Info_UPackage__Script_KurisaronVR, CONSTRUCT_RELOAD_VERSION_INFO(FPackageReloadVersionInfo, 0xA38A328D, 0x0B0ECE87));
+	static FRegisterCompiledInInfo Z_CompiledInDeferPackage_UPackage__Script_KurisaronVR(Z_Construct_UPackage__Script_KurisaronVR, TEXT("/Script/KurisaronVR"), Z_Registration_Info_UPackage__Script_KurisaronVR, CONSTRUCT_RELOAD_VERSION_INFO(FPackageReloadVersionInfo, 0x14E9E2B5, 0x2513B5F7));
 PRAGMA_ENABLE_DEPRECATION_WARNINGS

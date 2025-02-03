@@ -19,10 +19,6 @@ class KURISARONVR_API UHandControllerComponent : public UMotionControllerCompone
 {
 	GENERATED_BODY()
 
-	USphereComponent* HapticTarget;
-	UBoxComponent* HapticCollider;
-	UPhysicsConstraintComponent* HapticConstraint;
-
 	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Input|Interaction", meta = (AllowPrivateAccess = "true"))
 	TObjectPtr<UInputMappingContext> InteractionInputMap;
 	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Input|Pose", meta = (AllowPrivateAccess = "true"))
@@ -60,8 +56,20 @@ public:
 	virtual void TickComponent(float DeltaTime, ELevelTick TickType, FActorComponentTickFunction* ThisTickFunction) override;
 
 protected:
-	// ACTION INPUT SUBSCRIBERS
 
+	/**
+	 * INPUT ACTION SUBSCRIBERS
+	*/
+
+	void Grab_Started(const FInputActionValue& Value);
+
+	void Grab_Triggered(const FInputActionValue& Value);
+
+	void Grab_Completed(const FInputActionValue& Value);
+
+	/**
+	 * INPUT ENCAPSULATES (Functions utilized by above subscribers to perform operations)
+	*/
 
 public:
 	// PUBLIC GETTERS
@@ -72,6 +80,8 @@ public:
 	UBoxComponent* GetHapticCollider();
 	// Return the physics constraint used to drive forces for haptic collision
 	UPhysicsConstraintComponent* GetHapticConstraint();
+	// Return the physics constraint used for grabbing
+	UPhysicsConstraintComponent* GetGrabConstraint();
 
 protected:
 	// DEBUG

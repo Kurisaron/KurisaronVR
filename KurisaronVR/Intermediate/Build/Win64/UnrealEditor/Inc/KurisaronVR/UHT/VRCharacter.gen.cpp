@@ -169,6 +169,30 @@ struct Z_Construct_UClass_AVRCharacter_Statics
 		{ "ToolTip", "Physics constraint used to pull the right hand's haptic collider toward its target" },
 #endif
 	};
+	static constexpr UECodeGen_Private::FMetaDataPairParam NewProp_LeftHandGrabConstraint_MetaData[] = {
+		{ "AllowPrivateAccess", "true" },
+		{ "Category", "VR|Hands|Grabbing" },
+#if !UE_BUILD_SHIPPING
+		{ "Comment", "// Physics constraint used by the left hand to grab\n" },
+#endif
+		{ "EditInline", "true" },
+		{ "ModuleRelativePath", "Public/VRCharacter.h" },
+#if !UE_BUILD_SHIPPING
+		{ "ToolTip", "Physics constraint used by the left hand to grab" },
+#endif
+	};
+	static constexpr UECodeGen_Private::FMetaDataPairParam NewProp_RightHandGrabConstraint_MetaData[] = {
+		{ "AllowPrivateAccess", "true" },
+		{ "Category", "VR|Hands|Grabbing" },
+#if !UE_BUILD_SHIPPING
+		{ "Comment", "// Physics constraint used by the right hand to grab\n" },
+#endif
+		{ "EditInline", "true" },
+		{ "ModuleRelativePath", "Public/VRCharacter.h" },
+#if !UE_BUILD_SHIPPING
+		{ "ToolTip", "Physics constraint used by the right hand to grab" },
+#endif
+	};
 #endif // WITH_METADATA
 	static const UECodeGen_Private::FObjectPropertyParams NewProp_VR_Origin;
 	static const UECodeGen_Private::FObjectPropertyParams NewProp_HMD_Camera;
@@ -180,6 +204,8 @@ struct Z_Construct_UClass_AVRCharacter_Statics
 	static const UECodeGen_Private::FObjectPropertyParams NewProp_RightHandHapticCollider;
 	static const UECodeGen_Private::FObjectPropertyParams NewProp_LeftHandHapticConstraint;
 	static const UECodeGen_Private::FObjectPropertyParams NewProp_RightHandHapticConstraint;
+	static const UECodeGen_Private::FObjectPropertyParams NewProp_LeftHandGrabConstraint;
+	static const UECodeGen_Private::FObjectPropertyParams NewProp_RightHandGrabConstraint;
 	static const UECodeGen_Private::FPropertyParamsBase* const PropPointers[];
 	static UObject* (*const DependentSingletons[])();
 	static constexpr FCppClassTypeInfoStatic StaticCppClassTypeInfo = {
@@ -197,6 +223,8 @@ const UECodeGen_Private::FObjectPropertyParams Z_Construct_UClass_AVRCharacter_S
 const UECodeGen_Private::FObjectPropertyParams Z_Construct_UClass_AVRCharacter_Statics::NewProp_RightHandHapticCollider = { "RightHandHapticCollider", nullptr, (EPropertyFlags)0x014400000008001d, UECodeGen_Private::EPropertyGenFlags::Object | UECodeGen_Private::EPropertyGenFlags::ObjectPtr, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(AVRCharacter, RightHandHapticCollider), Z_Construct_UClass_UBoxComponent_NoRegister, METADATA_PARAMS(UE_ARRAY_COUNT(NewProp_RightHandHapticCollider_MetaData), NewProp_RightHandHapticCollider_MetaData) };
 const UECodeGen_Private::FObjectPropertyParams Z_Construct_UClass_AVRCharacter_Statics::NewProp_LeftHandHapticConstraint = { "LeftHandHapticConstraint", nullptr, (EPropertyFlags)0x014400000008001d, UECodeGen_Private::EPropertyGenFlags::Object | UECodeGen_Private::EPropertyGenFlags::ObjectPtr, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(AVRCharacter, LeftHandHapticConstraint), Z_Construct_UClass_UPhysicsConstraintComponent_NoRegister, METADATA_PARAMS(UE_ARRAY_COUNT(NewProp_LeftHandHapticConstraint_MetaData), NewProp_LeftHandHapticConstraint_MetaData) };
 const UECodeGen_Private::FObjectPropertyParams Z_Construct_UClass_AVRCharacter_Statics::NewProp_RightHandHapticConstraint = { "RightHandHapticConstraint", nullptr, (EPropertyFlags)0x014400000008001d, UECodeGen_Private::EPropertyGenFlags::Object | UECodeGen_Private::EPropertyGenFlags::ObjectPtr, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(AVRCharacter, RightHandHapticConstraint), Z_Construct_UClass_UPhysicsConstraintComponent_NoRegister, METADATA_PARAMS(UE_ARRAY_COUNT(NewProp_RightHandHapticConstraint_MetaData), NewProp_RightHandHapticConstraint_MetaData) };
+const UECodeGen_Private::FObjectPropertyParams Z_Construct_UClass_AVRCharacter_Statics::NewProp_LeftHandGrabConstraint = { "LeftHandGrabConstraint", nullptr, (EPropertyFlags)0x014400000008001d, UECodeGen_Private::EPropertyGenFlags::Object | UECodeGen_Private::EPropertyGenFlags::ObjectPtr, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(AVRCharacter, LeftHandGrabConstraint), Z_Construct_UClass_UPhysicsConstraintComponent_NoRegister, METADATA_PARAMS(UE_ARRAY_COUNT(NewProp_LeftHandGrabConstraint_MetaData), NewProp_LeftHandGrabConstraint_MetaData) };
+const UECodeGen_Private::FObjectPropertyParams Z_Construct_UClass_AVRCharacter_Statics::NewProp_RightHandGrabConstraint = { "RightHandGrabConstraint", nullptr, (EPropertyFlags)0x014400000008001d, UECodeGen_Private::EPropertyGenFlags::Object | UECodeGen_Private::EPropertyGenFlags::ObjectPtr, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(AVRCharacter, RightHandGrabConstraint), Z_Construct_UClass_UPhysicsConstraintComponent_NoRegister, METADATA_PARAMS(UE_ARRAY_COUNT(NewProp_RightHandGrabConstraint_MetaData), NewProp_RightHandGrabConstraint_MetaData) };
 const UECodeGen_Private::FPropertyParamsBase* const Z_Construct_UClass_AVRCharacter_Statics::PropPointers[] = {
 	(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_AVRCharacter_Statics::NewProp_VR_Origin,
 	(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_AVRCharacter_Statics::NewProp_HMD_Camera,
@@ -208,6 +236,8 @@ const UECodeGen_Private::FPropertyParamsBase* const Z_Construct_UClass_AVRCharac
 	(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_AVRCharacter_Statics::NewProp_RightHandHapticCollider,
 	(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_AVRCharacter_Statics::NewProp_LeftHandHapticConstraint,
 	(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_AVRCharacter_Statics::NewProp_RightHandHapticConstraint,
+	(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_AVRCharacter_Statics::NewProp_LeftHandGrabConstraint,
+	(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_AVRCharacter_Statics::NewProp_RightHandGrabConstraint,
 };
 static_assert(UE_ARRAY_COUNT(Z_Construct_UClass_AVRCharacter_Statics::PropPointers) < 2048);
 UObject* (*const Z_Construct_UClass_AVRCharacter_Statics::DependentSingletons[])() = {
@@ -250,10 +280,10 @@ AVRCharacter::~AVRCharacter() {}
 struct Z_CompiledInDeferFile_FID_Github_KurisaronVR_KurisaronVR_Source_KurisaronVR_Public_VRCharacter_h_Statics
 {
 	static constexpr FClassRegisterCompiledInInfo ClassInfo[] = {
-		{ Z_Construct_UClass_AVRCharacter, AVRCharacter::StaticClass, TEXT("AVRCharacter"), &Z_Registration_Info_UClass_AVRCharacter, CONSTRUCT_RELOAD_VERSION_INFO(FClassReloadVersionInfo, sizeof(AVRCharacter), 2461850418U) },
+		{ Z_Construct_UClass_AVRCharacter, AVRCharacter::StaticClass, TEXT("AVRCharacter"), &Z_Registration_Info_UClass_AVRCharacter, CONSTRUCT_RELOAD_VERSION_INFO(FClassReloadVersionInfo, sizeof(AVRCharacter), 2605077214U) },
 	};
 };
-static FRegisterCompiledInInfo Z_CompiledInDeferFile_FID_Github_KurisaronVR_KurisaronVR_Source_KurisaronVR_Public_VRCharacter_h_3967438091(TEXT("/Script/KurisaronVR"),
+static FRegisterCompiledInInfo Z_CompiledInDeferFile_FID_Github_KurisaronVR_KurisaronVR_Source_KurisaronVR_Public_VRCharacter_h_3910246535(TEXT("/Script/KurisaronVR"),
 	Z_CompiledInDeferFile_FID_Github_KurisaronVR_KurisaronVR_Source_KurisaronVR_Public_VRCharacter_h_Statics::ClassInfo, UE_ARRAY_COUNT(Z_CompiledInDeferFile_FID_Github_KurisaronVR_KurisaronVR_Source_KurisaronVR_Public_VRCharacter_h_Statics::ClassInfo),
 	nullptr, 0,
 	nullptr, 0);

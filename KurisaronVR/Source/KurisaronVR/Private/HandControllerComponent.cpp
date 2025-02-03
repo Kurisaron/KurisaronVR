@@ -29,19 +29,89 @@ void UHandControllerComponent::TickComponent(float DeltaTime, ELevelTick TickTyp
 	Debug();
 }
 
+void UHandControllerComponent::Grab_Started(const FInputActionValue& Value)
+{
+	float GrabInput = Value.Get<float>();
+
+	if (UPhysicsConstraintComponent* GrabConstraint = GetGrabConstraint())
+	{
+		
+	}
+}
+
+void UHandControllerComponent::Grab_Triggered(const FInputActionValue& Value)
+{
+	float GrabInput = Value.Get<float>();
+}
+
+void UHandControllerComponent::Grab_Completed(const FInputActionValue& Value)
+{
+	float GrabInput = Value.Get<float>();
+
+	if (UPhysicsConstraintComponent* GrabConstraint = GetGrabConstraint())
+	{
+
+	}
+}
+
 USphereComponent* UHandControllerComponent::GetHapticTarget()
 {
-	return HapticTarget;
+	TArray<USceneComponent*> Children;
+	GetChildrenComponents(true, Children);
+
+	if (Children.Num() <= 0) return nullptr;
+	for (USceneComponent* Child : Children)
+	{
+		if (Child->GetName().Contains(TEXT("HapticTarget")))
+			return Cast<USphereComponent>(Child);
+	}
+
+	return nullptr;
 }
 
 UBoxComponent* UHandControllerComponent::GetHapticCollider()
 {
-	return HapticCollider;
+	TArray<USceneComponent*> Children;
+	GetChildrenComponents(true, Children);
+
+	if (Children.Num() <= 0) return nullptr;
+	for (USceneComponent* Child : Children)
+	{
+		if (Child->GetName().Contains(TEXT("HapticCollider")))
+			return Cast<UBoxComponent>(Child);
+	}
+
+	return nullptr;
 }
 
 UPhysicsConstraintComponent* UHandControllerComponent::GetHapticConstraint()
 {
-	return HapticConstraint;
+	TArray<USceneComponent*> Children;
+	GetChildrenComponents(true, Children);
+
+	if (Children.Num() <= 0) return nullptr;
+	for (USceneComponent* Child : Children)
+	{
+		if (Child->GetName().Contains(TEXT("HapticConstraint")))
+			return Cast<UPhysicsConstraintComponent>(Child);
+	}
+
+	return nullptr;
+}
+
+UPhysicsConstraintComponent* UHandControllerComponent::GetGrabConstraint()
+{
+	TArray<USceneComponent*> Children;
+	GetChildrenComponents(true, Children);
+
+	if (Children.Num() <= 0) return nullptr;
+	for (USceneComponent* Child : Children)
+	{
+		if (Child->GetName().Contains(TEXT("GrabConstraint")))
+			return Cast<UPhysicsConstraintComponent>(Child);
+	}
+
+	return nullptr;
 }
 
 void UHandControllerComponent::Debug()
