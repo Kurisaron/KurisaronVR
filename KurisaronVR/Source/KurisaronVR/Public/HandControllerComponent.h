@@ -3,6 +3,7 @@
 #pragma once
 
 #include "CoreMinimal.h"
+#include "Kismet/KismetSystemLibrary.h"
 #include "EnhancedInputSubsystems.h"
 #include "EnhancedInputComponent.h"
 #include "Components/BoxComponent.h"
@@ -19,32 +20,37 @@ class KURISARONVR_API UHandControllerComponent : public UMotionControllerCompone
 {
 	GENERATED_BODY()
 
-	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Input|Interaction", meta = (AllowPrivateAccess = "true"))
+	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Hand|Input|Interaction", meta = (AllowPrivateAccess = "true"))
 	TObjectPtr<UInputMappingContext> InteractionInputMap;
-	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Input|Pose", meta = (AllowPrivateAccess = "true"))
+	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Hand|Input|Pose", meta = (AllowPrivateAccess = "true"))
 	TObjectPtr<UInputMappingContext> PoseInputMap;
 
-	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Input|Interaction", meta = (AllowPrivateAccess = "true"))
+	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Hand|Input|Interaction", meta = (AllowPrivateAccess = "true"))
 	TObjectPtr<UInputAction> GrabAction;
-	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Input|Interaction", meta = (AllowPrivateAccess = "true"))
+	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Hand|Input|Interaction", meta = (AllowPrivateAccess = "true"))
 	TObjectPtr<UInputAction> FireAction;
-	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Input|Interaction", meta = (AllowPrivateAccess = "true"))
+	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Hand|Input|Interaction", meta = (AllowPrivateAccess = "true"))
 	TObjectPtr<UInputAction> UseAction;
-	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Input|Interaction", meta = (AllowPrivateAccess = "true"))
+	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Hand|Input|Interaction", meta = (AllowPrivateAccess = "true"))
 	TObjectPtr<UInputAction> AltUseAction;
 
-	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Input|Pose", meta = (AllowPrivateAccess = "true"))
+	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Hand|Input|Pose", meta = (AllowPrivateAccess = "true"))
 	TObjectPtr<UInputAction> GraspAction;
-	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Input|Pose", meta = (AllowPrivateAccess = "true"))
+	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Hand|Input|Pose", meta = (AllowPrivateAccess = "true"))
 	TObjectPtr<UInputAction> IndexCurlAction;
-	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Input|Pose", meta = (AllowPrivateAccess = "true"))
+	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Hand|Input|Pose", meta = (AllowPrivateAccess = "true"))
 	TObjectPtr<UInputAction> PointAction;
-	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Input|Pose", meta = (AllowPrivateAccess = "true"))
+	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Hand|Input|Pose", meta = (AllowPrivateAccess = "true"))
 	TObjectPtr<UInputAction> ThumbUpAction;
 
-	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Debug", meta = (AllowPrivateAccess = "true"))
+	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category = "Hand|Grabbing", meta = (AllowPrivateAccess = "true"))
+	float GrabRadius;
+	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category = "Hand|Grabbing", meta = (AllowPrivateAccess = "true"))
+	TArray<TEnumAsByte<EObjectTypeQuery>> GrabObjectTypes;
+
+	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Hand|Debug", meta = (AllowPrivateAccess = "true"))
 	bool bShowDebug = true;
-	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Debug", meta = (AllowPrivateAccess = "true", EditCondition = "bShowDebug", EditConditionHides))
+	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Hand|Debug", meta = (AllowPrivateAccess = "true", EditCondition = "bShowDebug", EditConditionHides))
 	bool bShowTransform = true;
 
 public:
@@ -70,6 +76,8 @@ protected:
 	/**
 	 * INPUT ENCAPSULATES (Functions utilized by above subscribers to perform operations)
 	*/
+
+	virtual void Grab(bool Pressed);
 
 public:
 	// PUBLIC GETTERS

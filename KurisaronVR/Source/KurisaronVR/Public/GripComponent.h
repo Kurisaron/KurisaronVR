@@ -20,4 +20,6 @@ class KURISARONVR_API UGripComponent : public UPrimitiveComponent
 public:
 
 	UGripComponent(const FObjectInitializer& ObjectInitializer = FObjectInitializer::Get());
+
+	bool GetSnapOnGrab();
 };

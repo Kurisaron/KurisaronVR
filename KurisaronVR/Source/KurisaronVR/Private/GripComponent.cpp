@@ -7,3 +7,8 @@ UGripComponent::UGripComponent(const FObjectInitializer& ObjectInitializer) : Su
 {
 	bSnapOnGrab = true;
 }
+
+bool UGripComponent::GetSnapOnGrab()
+{
+	return bSnapOnGrab;
+}
