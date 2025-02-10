@@ -14,7 +14,7 @@ PRAGMA_DISABLE_DEPRECATION_WARNINGS
 #endif
 #define KURISARONVR_HandControllerComponent_generated_h
 
-#define FID_Github_KurisaronVR_KurisaronVR_Source_KurisaronVR_Public_HandControllerComponent_h_21_INCLASS_NO_PURE_DECLS \
+#define FID_Github_KurisaronVR_KurisaronVR_Source_KurisaronVR_Public_HandControllerComponent_h_23_INCLASS_NO_PURE_DECLS \
 private: \
 	static void StaticRegisterNativesUHandControllerComponent(); \
 	friend struct Z_Construct_UClass_UHandControllerComponent_Statics; \
@@ -23,7 +23,7 @@ public: \
 	DECLARE_SERIALIZER(UHandControllerComponent)
 
 
-#define FID_Github_KurisaronVR_KurisaronVR_Source_KurisaronVR_Public_HandControllerComponent_h_21_ENHANCED_CONSTRUCTORS \
+#define FID_Github_KurisaronVR_KurisaronVR_Source_KurisaronVR_Public_HandControllerComponent_h_23_ENHANCED_CONSTRUCTORS \
 private: \
 	/** Private move- and copy-constructors, should never be used */ \
 	UHandControllerComponent(UHandControllerComponent&&); \
@@ -35,12 +35,12 @@ public: \
 	NO_API virtual ~UHandControllerComponent();
 
 
-#define FID_Github_KurisaronVR_KurisaronVR_Source_KurisaronVR_Public_HandControllerComponent_h_18_PROLOG
-#define FID_Github_KurisaronVR_KurisaronVR_Source_KurisaronVR_Public_HandControllerComponent_h_21_GENERATED_BODY \
+#define FID_Github_KurisaronVR_KurisaronVR_Source_KurisaronVR_Public_HandControllerComponent_h_20_PROLOG
+#define FID_Github_KurisaronVR_KurisaronVR_Source_KurisaronVR_Public_HandControllerComponent_h_23_GENERATED_BODY \
 PRAGMA_DISABLE_DEPRECATION_WARNINGS \
 public: \
-	FID_Github_KurisaronVR_KurisaronVR_Source_KurisaronVR_Public_HandControllerComponent_h_21_INCLASS_NO_PURE_DECLS \
-	FID_Github_KurisaronVR_KurisaronVR_Source_KurisaronVR_Public_HandControllerComponent_h_21_ENHANCED_CONSTRUCTORS \
+	FID_Github_KurisaronVR_KurisaronVR_Source_KurisaronVR_Public_HandControllerComponent_h_23_INCLASS_NO_PURE_DECLS \
+	FID_Github_KurisaronVR_KurisaronVR_Source_KurisaronVR_Public_HandControllerComponent_h_23_ENHANCED_CONSTRUCTORS \
 private: \
 PRAGMA_ENABLE_DEPRECATION_WARNINGS
 

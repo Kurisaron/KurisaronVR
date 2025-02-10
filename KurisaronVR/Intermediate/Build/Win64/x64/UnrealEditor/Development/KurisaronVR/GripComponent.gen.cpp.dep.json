@@ -7,6 +7,8 @@
         "Includes": [
             "d:\\github\\kurisaronvr\\kurisaronvr\\intermediate\\build\\win64\\x64\\unrealeditor\\development\\kurisaronvr\\definitions.kurisaronvr.h",
             "d:\\github\\kurisaronvr\\kurisaronvr\\source\\kurisaronvr\\public\\gripcomponent.h",
+            "d:\\epiclibrary\\ue_5.5\\engine\\source\\runtime\\engine\\classes\\haptics\\hapticfeedbackeffect_base.h",
+            "d:\\epiclibrary\\ue_5.5\\engine\\intermediate\\build\\win64\\unrealeditor\\inc\\engine\\uht\\hapticfeedbackeffect_base.generated.h",
             "d:\\github\\kurisaronvr\\kurisaronvr\\intermediate\\build\\win64\\unrealeditor\\inc\\kurisaronvr\\uht\\gripcomponent.generated.h"
         ],
         "ImportedModules": [],

@@ -3,6 +3,7 @@
 
 #include "HandControllerComponent.h"
 #include "GripComponent.h"
+#include "Item.h"
 
 UHandControllerComponent::UHandControllerComponent(const FObjectInitializer& ObjectInitializer): Super(ObjectInitializer)
 {
@@ -61,9 +62,12 @@ void UHandControllerComponent::Grab(bool Pressed)
 	{
 		if (Pressed)
 		{
+			// Grab input button has started being pressed
+
+			// Check for nearby grip components. These take precedence on hands grabbing objects to ensure any specific behaviour such as snapping to a point is adhered
 			TArray<AActor*> IgnoredActors = { GetOwner() };
 			TArray<UPrimitiveComponent*> FoundComponents;
-			if (UKismetSystemLibrary::SphereOverlapComponents(World, GetComponentLocation(), GrabRadius, GrabObjectTypes, UGripComponent::StaticClass(), IgnoredActors, FoundComponents))
+			if (UKismetSystemLibrary::SphereOverlapComponents(World, GrabConstraint->GetComponentLocation(), GrabRadius, GrabObjectTypes, UGripComponent::StaticClass(), IgnoredActors, FoundComponents))
 			{
 				UGripComponent* ClosestGrip = nullptr;
 				float ClosestDistance = GrabRadius;
@@ -72,6 +76,8 @@ void UHandControllerComponent::Grab(bool Pressed)
 				{
 					if (UGripComponent* FoundGrip = Cast<UGripComponent>(FoundComponents[i]))
 					{
+						if (!FoundGrip->CanGrab()) continue;
+						
 						float GripDistance = FVector::Distance(GrabConstraint->GetComponentLocation(), FoundGrip->GetComponentLocation());
 						if (GripDistance < ClosestDistance)
 						{
@@ -83,19 +89,39 @@ void UHandControllerComponent::Grab(bool Pressed)
 
 				if (ClosestGrip)
 				{
-					if (ClosestGrip->GetSnapOnGrab())
+					if (ClosestGrip->SnapOnGrab())
 					{
 						FVector LocationDelta = ClosestGrip->GetComponentLocation() - Collider->GetComponentLocation();
 						Collider->AddWorldOffset(LocationDelta, true);
 					}
 
-					GrabConstraint->SetConstrainedComponents(Collider, FName(), ClosestGrip, FName());
+					GrabbedGrip = ClosestGrip;
+					GrabConstraint->SetConstrainedComponents(Collider, FName(), GrabbedGrip, FName());
+					if (APawn* OwnerPawn = Cast<APawn>(GetOwner()))
+					{
+						if (AController* Controller = OwnerPawn->GetController())
+						{
+							if (APlayerController* PlayerController = Cast<APlayerController>(Controller))
+							{
+								UHapticFeedbackEffect_Base* HapticEffect = GrabbedGrip->GetGrabHapticEffect();
+
+								PlayerController->PlayHapticEffect(HapticEffect, GetTrackingSource());
+							}
+						}
+					}
 				}
 			}
+
 		}
 		else
 		{
-			GrabConstraint->SetConstrainedComponents(Collider, FName(), nullptr, FName());
+			// Grab input button has stopped being pressed
+
+			if (GrabbedGrip)
+			{
+				GrabbedGrip = nullptr;
+				GrabConstraint->SetConstrainedComponents(Collider, FName(), nullptr, FName());
+			}
 		}
 	}
 	else

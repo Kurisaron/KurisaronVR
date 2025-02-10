@@ -12,6 +12,8 @@
 #include "MotionControllerComponent.h"
 #include "HandControllerComponent.generated.h"
 
+class UGripComponent;
+
 /**
  * 
  */
@@ -47,6 +49,8 @@ class KURISARONVR_API UHandControllerComponent : public UMotionControllerCompone
 	float GrabRadius;
 	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category = "Hand|Grabbing", meta = (AllowPrivateAccess = "true"))
 	TArray<TEnumAsByte<EObjectTypeQuery>> GrabObjectTypes;
+	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "Hand|Grabbing", meta = (AllowPrivateAccess = "true"))
+	UGripComponent* GrabbedGrip;
 
 	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Hand|Debug", meta = (AllowPrivateAccess = "true"))
 	bool bShowDebug = true;

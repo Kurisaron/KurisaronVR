@@ -5,10 +5,21 @@
 
 UGripComponent::UGripComponent(const FObjectInitializer& ObjectInitializer) : Super(ObjectInitializer)
 {
+	bCanGrab = true;
 	bSnapOnGrab = true;
 }
 
-bool UGripComponent::GetSnapOnGrab()
+bool UGripComponent::CanGrab()
+{
+	return bCanGrab;
+}
+
+bool UGripComponent::SnapOnGrab()
 {
 	return bSnapOnGrab;
+}
+
+UHapticFeedbackEffect_Base* UGripComponent::GetGrabHapticEffect()
+{
+	return GrabHapticEffect;
 }
