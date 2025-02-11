@@ -116,7 +116,14 @@ struct Z_Construct_UClass_UHandControllerComponent_Statics
 		{ "Category", "Hand|Debug" },
 		{ "ModuleRelativePath", "Public/HandControllerComponent.h" },
 	};
-	static constexpr UECodeGen_Private::FMetaDataPairParam NewProp_bShowTransform_MetaData[] = {
+	static constexpr UECodeGen_Private::FMetaDataPairParam NewProp_bDebugTransform_MetaData[] = {
+		{ "AllowPrivateAccess", "true" },
+		{ "Category", "Hand|Debug" },
+		{ "EditCondition", "bShowDebug" },
+		{ "EditConditionHides", "" },
+		{ "ModuleRelativePath", "Public/HandControllerComponent.h" },
+	};
+	static constexpr UECodeGen_Private::FMetaDataPairParam NewProp_bDebugGrabbing_MetaData[] = {
 		{ "AllowPrivateAccess", "true" },
 		{ "Category", "Hand|Debug" },
 		{ "EditCondition", "bShowDebug" },
@@ -140,8 +147,10 @@ struct Z_Construct_UClass_UHandControllerComponent_Statics
 	static const UECodeGen_Private::FObjectPropertyParams NewProp_GrabbedGrip;
 	static void NewProp_bShowDebug_SetBit(void* Obj);
 	static const UECodeGen_Private::FBoolPropertyParams NewProp_bShowDebug;
-	static void NewProp_bShowTransform_SetBit(void* Obj);
-	static const UECodeGen_Private::FBoolPropertyParams NewProp_bShowTransform;
+	static void NewProp_bDebugTransform_SetBit(void* Obj);
+	static const UECodeGen_Private::FBoolPropertyParams NewProp_bDebugTransform;
+	static void NewProp_bDebugGrabbing_SetBit(void* Obj);
+	static const UECodeGen_Private::FBoolPropertyParams NewProp_bDebugGrabbing;
 	static const UECodeGen_Private::FPropertyParamsBase* const PropPointers[];
 	static UObject* (*const DependentSingletons[])();
 	static constexpr FCppClassTypeInfoStatic StaticCppClassTypeInfo = {
@@ -167,12 +176,17 @@ void Z_Construct_UClass_UHandControllerComponent_Statics::NewProp_bShowDebug_Set
 {
 	((UHandControllerComponent*)Obj)->bShowDebug = 1;
 }
-const UECodeGen_Private::FBoolPropertyParams Z_Construct_UClass_UHandControllerComponent_Statics::NewProp_bShowDebug = { "bShowDebug", nullptr, (EPropertyFlags)0x0040000000000015, UECodeGen_Private::EPropertyGenFlags::Bool | UECodeGen_Private::EPropertyGenFlags::NativeBool, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, sizeof(bool), sizeof(UHandControllerComponent), &Z_Construct_UClass_UHandControllerComponent_Statics::NewProp_bShowDebug_SetBit, METADATA_PARAMS(UE_ARRAY_COUNT(NewProp_bShowDebug_MetaData), NewProp_bShowDebug_MetaData) };
-void Z_Construct_UClass_UHandControllerComponent_Statics::NewProp_bShowTransform_SetBit(void* Obj)
+const UECodeGen_Private::FBoolPropertyParams Z_Construct_UClass_UHandControllerComponent_Statics::NewProp_bShowDebug = { "bShowDebug", nullptr, (EPropertyFlags)0x0040000000010015, UECodeGen_Private::EPropertyGenFlags::Bool | UECodeGen_Private::EPropertyGenFlags::NativeBool, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, sizeof(bool), sizeof(UHandControllerComponent), &Z_Construct_UClass_UHandControllerComponent_Statics::NewProp_bShowDebug_SetBit, METADATA_PARAMS(UE_ARRAY_COUNT(NewProp_bShowDebug_MetaData), NewProp_bShowDebug_MetaData) };
+void Z_Construct_UClass_UHandControllerComponent_Statics::NewProp_bDebugTransform_SetBit(void* Obj)
 {
-	((UHandControllerComponent*)Obj)->bShowTransform = 1;
+	((UHandControllerComponent*)Obj)->bDebugTransform = 1;
 }
-const UECodeGen_Private::FBoolPropertyParams Z_Construct_UClass_UHandControllerComponent_Statics::NewProp_bShowTransform = { "bShowTransform", nullptr, (EPropertyFlags)0x0040000000000015, UECodeGen_Private::EPropertyGenFlags::Bool | UECodeGen_Private::EPropertyGenFlags::NativeBool, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, sizeof(bool), sizeof(UHandControllerComponent), &Z_Construct_UClass_UHandControllerComponent_Statics::NewProp_bShowTransform_SetBit, METADATA_PARAMS(UE_ARRAY_COUNT(NewProp_bShowTransform_MetaData), NewProp_bShowTransform_MetaData) };
+const UECodeGen_Private::FBoolPropertyParams Z_Construct_UClass_UHandControllerComponent_Statics::NewProp_bDebugTransform = { "bDebugTransform", nullptr, (EPropertyFlags)0x0040000000010015, UECodeGen_Private::EPropertyGenFlags::Bool | UECodeGen_Private::EPropertyGenFlags::NativeBool, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, sizeof(bool), sizeof(UHandControllerComponent), &Z_Construct_UClass_UHandControllerComponent_Statics::NewProp_bDebugTransform_SetBit, METADATA_PARAMS(UE_ARRAY_COUNT(NewProp_bDebugTransform_MetaData), NewProp_bDebugTransform_MetaData) };
+void Z_Construct_UClass_UHandControllerComponent_Statics::NewProp_bDebugGrabbing_SetBit(void* Obj)
+{
+	((UHandControllerComponent*)Obj)->bDebugGrabbing = 1;
+}
+const UECodeGen_Private::FBoolPropertyParams Z_Construct_UClass_UHandControllerComponent_Statics::NewProp_bDebugGrabbing = { "bDebugGrabbing", nullptr, (EPropertyFlags)0x0040000000010015, UECodeGen_Private::EPropertyGenFlags::Bool | UECodeGen_Private::EPropertyGenFlags::NativeBool, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, sizeof(bool), sizeof(UHandControllerComponent), &Z_Construct_UClass_UHandControllerComponent_Statics::NewProp_bDebugGrabbing_SetBit, METADATA_PARAMS(UE_ARRAY_COUNT(NewProp_bDebugGrabbing_MetaData), NewProp_bDebugGrabbing_MetaData) };
 const UECodeGen_Private::FPropertyParamsBase* const Z_Construct_UClass_UHandControllerComponent_Statics::PropPointers[] = {
 	(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_UHandControllerComponent_Statics::NewProp_InteractionInputMap,
 	(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_UHandControllerComponent_Statics::NewProp_PoseInputMap,
@@ -189,7 +203,8 @@ const UECodeGen_Private::FPropertyParamsBase* const Z_Construct_UClass_UHandCont
 	(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_UHandControllerComponent_Statics::NewProp_GrabObjectTypes,
 	(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_UHandControllerComponent_Statics::NewProp_GrabbedGrip,
 	(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_UHandControllerComponent_Statics::NewProp_bShowDebug,
-	(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_UHandControllerComponent_Statics::NewProp_bShowTransform,
+	(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_UHandControllerComponent_Statics::NewProp_bDebugTransform,
+	(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_UHandControllerComponent_Statics::NewProp_bDebugGrabbing,
 };
 static_assert(UE_ARRAY_COUNT(Z_Construct_UClass_UHandControllerComponent_Statics::PropPointers) < 2048);
 UObject* (*const Z_Construct_UClass_UHandControllerComponent_Statics::DependentSingletons[])() = {
@@ -232,10 +247,10 @@ UHandControllerComponent::~UHandControllerComponent() {}
 struct Z_CompiledInDeferFile_FID_Github_KurisaronVR_KurisaronVR_Source_KurisaronVR_Public_HandControllerComponent_h_Statics
 {
 	static constexpr FClassRegisterCompiledInInfo ClassInfo[] = {
-		{ Z_Construct_UClass_UHandControllerComponent, UHandControllerComponent::StaticClass, TEXT("UHandControllerComponent"), &Z_Registration_Info_UClass_UHandControllerComponent, CONSTRUCT_RELOAD_VERSION_INFO(FClassReloadVersionInfo, sizeof(UHandControllerComponent), 2149794396U) },
+		{ Z_Construct_UClass_UHandControllerComponent, UHandControllerComponent::StaticClass, TEXT("UHandControllerComponent"), &Z_Registration_Info_UClass_UHandControllerComponent, CONSTRUCT_RELOAD_VERSION_INFO(FClassReloadVersionInfo, sizeof(UHandControllerComponent), 3188630124U) },
 	};
 };
-static FRegisterCompiledInInfo Z_CompiledInDeferFile_FID_Github_KurisaronVR_KurisaronVR_Source_KurisaronVR_Public_HandControllerComponent_h_875810793(TEXT("/Script/KurisaronVR"),
+static FRegisterCompiledInInfo Z_CompiledInDeferFile_FID_Github_KurisaronVR_KurisaronVR_Source_KurisaronVR_Public_HandControllerComponent_h_2864583208(TEXT("/Script/KurisaronVR"),
 	Z_CompiledInDeferFile_FID_Github_KurisaronVR_KurisaronVR_Source_KurisaronVR_Public_HandControllerComponent_h_Statics::ClassInfo, UE_ARRAY_COUNT(Z_CompiledInDeferFile_FID_Github_KurisaronVR_KurisaronVR_Source_KurisaronVR_Public_HandControllerComponent_h_Statics::ClassInfo),
 	nullptr, 0,
 	nullptr, 0);

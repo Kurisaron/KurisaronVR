@@ -9,6 +9,8 @@ UHandControllerComponent::UHandControllerComponent(const FObjectInitializer& Obj
 {
 	PrimaryComponentTick.bCanEverTick = true;
 
+	GrabInput = 0.0f;
+
 	GrabRadius = 10.0f;
 }
 
@@ -35,19 +37,19 @@ void UHandControllerComponent::TickComponent(float DeltaTime, ELevelTick TickTyp
 
 void UHandControllerComponent::Grab_Started(const FInputActionValue& Value)
 {
-	float GrabInput = Value.Get<float>();
+	GrabInput = Value.Get<float>();
 
 	Grab(true);
 }
 
 void UHandControllerComponent::Grab_Triggered(const FInputActionValue& Value)
 {
-	float GrabInput = Value.Get<float>();
+	GrabInput = Value.Get<float>();
 }
 
 void UHandControllerComponent::Grab_Completed(const FInputActionValue& Value)
 {
-	float GrabInput = Value.Get<float>();
+	GrabInput = Value.Get<float>();
 
 	Grab(false);
 }
@@ -201,8 +203,24 @@ void UHandControllerComponent::Debug()
 
 	UWorld* World = GetWorld();
 
-	if (bShowTransform)
+	if (bDebugTransform)
 	{
 		DrawDebugCoordinateSystem(World, GetComponentLocation(), GetComponentRotation(), 20.0f);
+	}
+
+	if (bDebugGrabbing)
+	{
+		if (UPhysicsConstraintComponent* GrabConstraint = GetGrabConstraint())
+		{
+			FColor GrabbedColor(FColor::Green), ReleasedColor(FColor::Emerald);
+			FColor SphereColor(
+				FMath::Lerp(ReleasedColor.R, GrabbedColor.R, GrabInput),
+				FMath::Lerp(ReleasedColor.G, GrabbedColor.G, GrabInput),
+				FMath::Lerp(ReleasedColor.B, GrabbedColor.B, GrabInput),
+				FMath::Lerp(ReleasedColor.A, GrabbedColor.A, GrabInput)
+			);
+			DrawDebugSphere(World, GrabConstraint->GetComponentLocation(), GrabRadius, 16, SphereColor);
+		}
+		
 	}
 }

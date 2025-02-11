@@ -36,6 +36,8 @@ class KURISARONVR_API UHandControllerComponent : public UMotionControllerCompone
 	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Hand|Input|Interaction", meta = (AllowPrivateAccess = "true"))
 	TObjectPtr<UInputAction> AltUseAction;
 
+	float GrabInput;
+
 	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Hand|Input|Pose", meta = (AllowPrivateAccess = "true"))
 	TObjectPtr<UInputAction> GraspAction;
 	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Hand|Input|Pose", meta = (AllowPrivateAccess = "true"))
@@ -52,10 +54,12 @@ class KURISARONVR_API UHandControllerComponent : public UMotionControllerCompone
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "Hand|Grabbing", meta = (AllowPrivateAccess = "true"))
 	UGripComponent* GrabbedGrip;
 
-	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Hand|Debug", meta = (AllowPrivateAccess = "true"))
+	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category = "Hand|Debug", meta = (AllowPrivateAccess = "true"))
 	bool bShowDebug = true;
-	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Hand|Debug", meta = (AllowPrivateAccess = "true", EditCondition = "bShowDebug", EditConditionHides))
-	bool bShowTransform = true;
+	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category = "Hand|Debug", meta = (AllowPrivateAccess = "true", EditCondition = "bShowDebug", EditConditionHides))
+	bool bDebugTransform = true;
+	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category = "Hand|Debug", meta = (AllowPrivateAccess = "true", EditCondition = "bShowDebug", EditConditionHides))
+	bool bDebugGrabbing = true;
 
 public:
 
