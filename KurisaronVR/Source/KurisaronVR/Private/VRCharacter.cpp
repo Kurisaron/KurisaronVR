@@ -93,6 +93,8 @@ AVRCharacter::AVRCharacter(const FObjectInitializer& ObjectInitializer) : Super(
 						ConstraintInstance->SetLinearVelocityDrive(true, true, true);
 						ConstraintInstance->SetLinearDriveParams(10000.0f, 100.0f, 0.0f);
 						HapticConstraint->SetConstrainedComponents(Target, FName(), Collider, FName());
+
+						Hand->SetHapticComponents(Target, Collider, HapticConstraint);
 					}
 
 					if (UPhysicsConstraintComponent* GrabConstraint = GrabConstraints[i])
@@ -108,7 +110,8 @@ AVRCharacter::AVRCharacter(const FObjectInitializer& ObjectInitializer) : Super(
 						GrabConstraint->SetAngularSwing1Limit(EAngularConstraintMotion::ACM_Locked, 0.0f);
 						GrabConstraint->SetAngularSwing2Limit(EAngularConstraintMotion::ACM_Locked, 0.0f);
 						GrabConstraint->SetAngularTwistLimit(EAngularConstraintMotion::ACM_Locked, 0.0f);
-						GrabConstraint->SetConstrainedComponents(Collider, FName(), nullptr, FName());
+
+						Hand->SetGrabConstraint(GrabConstraint);
 					}
 				}
 			}

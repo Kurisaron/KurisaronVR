@@ -10,8 +10,15 @@ UHandControllerComponent::UHandControllerComponent(const FObjectInitializer& Obj
 	PrimaryComponentTick.bCanEverTick = true;
 
 	GrabInput = 0.0f;
+	FireInput = 0.0f;
+	UseInput = 0.0f;
+	AltUseInput = 0.0f;
 
 	GrabRadius = 10.0f;
+
+	bShowDebug = true;
+	bDebugTransform = true;
+	bDebugGrabbing = true;
 }
 
 void UHandControllerComponent::SetupPlayerInput(UEnhancedInputLocalPlayerSubsystem* Subsystem, UEnhancedInputComponent* EnhancedInput)
@@ -24,7 +31,9 @@ void UHandControllerComponent::SetupPlayerInput(UEnhancedInputLocalPlayerSubsyst
 
 	if (EnhancedInput)
 	{
-		//EnhancedInput->BindAction(GrabAction, ETriggerEvent::Triggered, this, &UHandControllerComponent::Grab_Triggered);
+		EnhancedInput->BindAction(GrabAction, ETriggerEvent::Started, this, &UHandControllerComponent::Grab_Started);
+		EnhancedInput->BindAction(GrabAction, ETriggerEvent::Triggered, this, &UHandControllerComponent::Grab_Triggered);
+		EnhancedInput->BindAction(GrabAction, ETriggerEvent::Completed, this, &UHandControllerComponent::Grab_Completed);
 	}
 }
 
@@ -54,13 +63,56 @@ void UHandControllerComponent::Grab_Completed(const FInputActionValue& Value)
 	Grab(false);
 }
 
+void UHandControllerComponent::Fire_Started(const FInputActionValue& Value)
+{
+	FireInput = Value.Get<float>();
+}
+
+void UHandControllerComponent::Fire_Triggered(const FInputActionValue& Value)
+{
+	FireInput = Value.Get<float>();
+}
+
+void UHandControllerComponent::Fire_Completed(const FInputActionValue& Value)
+{
+	FireInput = Value.Get<float>();
+}
+
+void UHandControllerComponent::Use_Started(const FInputActionValue& Value)
+{
+	UseInput = Value.Get<float>();
+}
+
+void UHandControllerComponent::Use_Triggered(const FInputActionValue& Value)
+{
+	UseInput = Value.Get<float>();
+}
+
+void UHandControllerComponent::Use_Completed(const FInputActionValue& Value)
+{
+	UseInput = Value.Get<float>();
+}
+
+void UHandControllerComponent::AltUse_Started(const FInputActionValue& Value)
+{
+	AltUseInput = Value.Get<float>();
+}
+
+void UHandControllerComponent::AltUse_Triggered(const FInputActionValue& Value)
+{
+	AltUseInput = Value.Get<float>();
+}
+
+void UHandControllerComponent::AltUse_Completed(const FInputActionValue& Value)
+{
+	AltUseInput = Value.Get<float>();
+}
+
 void UHandControllerComponent::Grab(bool Pressed)
 {
 	UWorld* World = GetWorld();
-	UBoxComponent* Collider = GetHapticCollider();
-	UPhysicsConstraintComponent* GrabConstraint = GetGrabConstraint();
 
-	if (World && Collider && GrabConstraint)
+	if (World && HapticCollider && GrabConstraint)
 	{
 		if (Pressed)
 		{
@@ -68,37 +120,53 @@ void UHandControllerComponent::Grab(bool Pressed)
 
 			// Check for nearby grip components. These take precedence on hands grabbing objects to ensure any specific behaviour such as snapping to a point is adhered
 			TArray<AActor*> IgnoredActors = { GetOwner() };
-			TArray<UPrimitiveComponent*> FoundComponents;
-			if (UKismetSystemLibrary::SphereOverlapComponents(World, GrabConstraint->GetComponentLocation(), GrabRadius, GrabObjectTypes, UGripComponent::StaticClass(), IgnoredActors, FoundComponents))
+			TArray<TEnumAsByte<EObjectTypeQuery>> GrabObjectTypes = { UEngineTypes::ConvertToObjectType(ECollisionChannel::ECC_PhysicsBody)};
+			TArray<FHitResult> TraceHits;
+
+			if (UKismetSystemLibrary::SphereTraceMultiForObjects(World, GrabConstraint->GetComponentLocation(), GrabConstraint->GetComponentLocation(), GrabRadius, GrabObjectTypes, false, TArray<AActor*>(), EDrawDebugTrace::Type::None, TraceHits, true))
 			{
 				UGripComponent* ClosestGrip = nullptr;
 				float ClosestDistance = GrabRadius;
-				
-				for (int i = 0; i < FoundComponents.Num(); i++)
+
+				for (int i = 0; i < TraceHits.Num(); i++)
 				{
-					if (UGripComponent* FoundGrip = Cast<UGripComponent>(FoundComponents[i]))
+					FHitResult Hit = TraceHits[i];
+					if (AActor* HitActor = Hit.GetActor())
 					{
-						if (!FoundGrip->CanGrab()) continue;
-						
-						float GripDistance = FVector::Distance(GrabConstraint->GetComponentLocation(), FoundGrip->GetComponentLocation());
-						if (GripDistance < ClosestDistance)
+						TArray<UGripComponent*> HitActorGrips;
+						HitActor->GetComponents(HitActorGrips);
+						if (HitActorGrips.Num() > 0)
 						{
-							ClosestGrip = FoundGrip;
-							ClosestDistance = GripDistance;
+							for (int j = 0; j < HitActorGrips.Num(); j++)
+							{
+								UGripComponent* HitGrip = HitActorGrips[j];
+								if (!HitGrip || !HitGrip->CanGrab()) continue;
+
+								DrawDebugCoordinateSystem(World, HitGrip->GetComponentLocation(), HitGrip->GetComponentRotation(), 10.0f, false, 3.0f);
+
+								float GripDistance = FVector::Distance(GrabConstraint->GetComponentLocation(), HitGrip->GetComponentLocation());
+								if (GripDistance < ClosestDistance)
+								{
+									ClosestGrip = HitGrip;
+									ClosestDistance = GripDistance;
+								}
+							}
 						}
 					}
 				}
-
+				
 				if (ClosestGrip)
 				{
+					
 					if (ClosestGrip->SnapOnGrab())
 					{
-						FVector LocationDelta = ClosestGrip->GetComponentLocation() - Collider->GetComponentLocation();
-						Collider->AddWorldOffset(LocationDelta, true);
+						FVector LocationDelta = ClosestGrip->GetComponentLocation() - HapticCollider->GetComponentLocation();
+						//HapticCollider->AddWorldOffset(LocationDelta, true);
 					}
 
 					GrabbedGrip = ClosestGrip;
-					GrabConstraint->SetConstrainedComponents(Collider, FName(), GrabbedGrip, FName());
+					GrabbedGrip->WakeRigidBody();
+					GrabConstraint->SetConstrainedComponents(HapticCollider, FName(), GrabbedGrip, FName());
 					if (APawn* OwnerPawn = Cast<APawn>(GetOwner()))
 					{
 						if (AController* Controller = OwnerPawn->GetController())
@@ -122,7 +190,7 @@ void UHandControllerComponent::Grab(bool Pressed)
 			if (GrabbedGrip)
 			{
 				GrabbedGrip = nullptr;
-				GrabConstraint->SetConstrainedComponents(Collider, FName(), nullptr, FName());
+				GrabConstraint->BreakConstraint();
 			}
 		}
 	}
@@ -130,72 +198,32 @@ void UHandControllerComponent::Grab(bool Pressed)
 	{
 		if (!World)
 			UE_LOG(LogTemp, Warning, TEXT("No world found for grab/release"));
-		if (!Collider)
+		if (!HapticCollider)
 			UE_LOG(LogTemp, Warning, TEXT("No haptic collider found for grab/release"));
 		if (!GrabConstraint)
 			UE_LOG(LogTemp, Warning, TEXT("No grab constraint found for grab/release"));
 	}
 }
 
-USphereComponent* UHandControllerComponent::GetHapticTarget()
+void UHandControllerComponent::SetHapticComponents(USphereComponent* Target, UBoxComponent* Collider, UPhysicsConstraintComponent* Constraint)
 {
-	TArray<USceneComponent*> Children;
-	GetChildrenComponents(true, Children);
-
-	if (Children.Num() <= 0) return nullptr;
-	for (USceneComponent* Child : Children)
-	{
-		if (Child->GetName().Contains(TEXT("HapticTarget")))
-			return Cast<USphereComponent>(Child);
-	}
-
-	return nullptr;
+	HapticTarget = Target;
+	HapticCollider = Collider;
+	HapticConstraint = Constraint;
 }
 
-UBoxComponent* UHandControllerComponent::GetHapticCollider()
+void UHandControllerComponent::SetGrabConstraint(UPhysicsConstraintComponent* Constraint)
 {
-	TArray<USceneComponent*> Children;
-	GetChildrenComponents(true, Children);
-
-	if (Children.Num() <= 0) return nullptr;
-	for (USceneComponent* Child : Children)
-	{
-		if (Child->GetName().Contains(TEXT("HapticCollider")))
-			return Cast<UBoxComponent>(Child);
-	}
-
-	return nullptr;
+	GrabConstraint = Constraint;
 }
 
-UPhysicsConstraintComponent* UHandControllerComponent::GetHapticConstraint()
-{
-	TArray<USceneComponent*> Children;
-	GetChildrenComponents(true, Children);
+USphereComponent* UHandControllerComponent::GetHapticTarget() { return HapticTarget; }
 
-	if (Children.Num() <= 0) return nullptr;
-	for (USceneComponent* Child : Children)
-	{
-		if (Child->GetName().Contains(TEXT("HapticConstraint")))
-			return Cast<UPhysicsConstraintComponent>(Child);
-	}
+UBoxComponent* UHandControllerComponent::GetHapticCollider() { return HapticCollider; }
 
-	return nullptr;
-}
+UPhysicsConstraintComponent* UHandControllerComponent::GetHapticConstraint() { return HapticConstraint; }
 
-UPhysicsConstraintComponent* UHandControllerComponent::GetGrabConstraint()
-{
-	TArray<USceneComponent*> Children;
-	GetChildrenComponents(true, Children);
-
-	if (Children.Num() <= 0) return nullptr;
-	for (USceneComponent* Child : Children)
-	{
-		if (Child->GetName().Contains(TEXT("GrabConstraint")))
-			return Cast<UPhysicsConstraintComponent>(Child);
-	}
-
-	return nullptr;
-}
+UPhysicsConstraintComponent* UHandControllerComponent::GetGrabConstraint() { return GrabConstraint; }
 
 void UHandControllerComponent::Debug()
 {
@@ -210,7 +238,7 @@ void UHandControllerComponent::Debug()
 
 	if (bDebugGrabbing)
 	{
-		if (UPhysicsConstraintComponent* GrabConstraint = GetGrabConstraint())
+		if (GrabConstraint)
 		{
 			FColor GrabbedColor(FColor::Green), ReleasedColor(FColor::Emerald);
 			FColor SphereColor(
@@ -220,6 +248,14 @@ void UHandControllerComponent::Debug()
 				FMath::Lerp(ReleasedColor.A, GrabbedColor.A, GrabInput)
 			);
 			DrawDebugSphere(World, GrabConstraint->GetComponentLocation(), GrabRadius, 16, SphereColor);
+		}
+		else if (HapticCollider)
+		{
+			DrawDebugSphere(World, HapticCollider->GetComponentLocation(), GrabRadius, 16, FColor::Magenta);
+		}
+		else
+		{
+			DrawDebugSphere(World, GetComponentLocation(), GrabRadius, 16, FColor::Red);
 		}
 		
 	}

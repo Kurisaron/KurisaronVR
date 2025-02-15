@@ -22,6 +22,11 @@ class KURISARONVR_API UHandControllerComponent : public UMotionControllerCompone
 {
 	GENERATED_BODY()
 
+	USphereComponent* HapticTarget;
+	UBoxComponent* HapticCollider;
+	UPhysicsConstraintComponent* HapticConstraint;
+	UPhysicsConstraintComponent* GrabConstraint;
+	
 	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Hand|Input|Interaction", meta = (AllowPrivateAccess = "true"))
 	TObjectPtr<UInputMappingContext> InteractionInputMap;
 	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Hand|Input|Pose", meta = (AllowPrivateAccess = "true"))
@@ -36,7 +41,14 @@ class KURISARONVR_API UHandControllerComponent : public UMotionControllerCompone
 	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Hand|Input|Interaction", meta = (AllowPrivateAccess = "true"))
 	TObjectPtr<UInputAction> AltUseAction;
 
+	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "Hand|Input|Interaction", meta = (AllowPrivateAccess = "true"))
 	float GrabInput;
+	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "Hand|Input|Interaction", meta = (AllowPrivateAccess = "true"))
+	float FireInput;
+	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "Hand|Input|Interaction", meta = (AllowPrivateAccess = "true"))
+	float UseInput;
+	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "Hand|Input|Interaction", meta = (AllowPrivateAccess = "true"))
+	float AltUseInput;
 
 	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Hand|Input|Pose", meta = (AllowPrivateAccess = "true"))
 	TObjectPtr<UInputAction> GraspAction;
@@ -47,19 +59,17 @@ class KURISARONVR_API UHandControllerComponent : public UMotionControllerCompone
 	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Hand|Input|Pose", meta = (AllowPrivateAccess = "true"))
 	TObjectPtr<UInputAction> ThumbUpAction;
 
-	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category = "Hand|Grabbing", meta = (AllowPrivateAccess = "true"))
+	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category = "Hand|Grab", meta = (AllowPrivateAccess = "true"))
 	float GrabRadius;
-	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category = "Hand|Grabbing", meta = (AllowPrivateAccess = "true"))
-	TArray<TEnumAsByte<EObjectTypeQuery>> GrabObjectTypes;
-	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "Hand|Grabbing", meta = (AllowPrivateAccess = "true"))
+	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "Hand|Grab", meta = (AllowPrivateAccess = "true"))
 	UGripComponent* GrabbedGrip;
 
 	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category = "Hand|Debug", meta = (AllowPrivateAccess = "true"))
-	bool bShowDebug = true;
+	bool bShowDebug;
 	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category = "Hand|Debug", meta = (AllowPrivateAccess = "true", EditCondition = "bShowDebug", EditConditionHides))
-	bool bDebugTransform = true;
+	bool bDebugTransform;
 	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category = "Hand|Debug", meta = (AllowPrivateAccess = "true", EditCondition = "bShowDebug", EditConditionHides))
-	bool bDebugGrabbing = true;
+	bool bDebugGrabbing;
 
 public:
 
@@ -81,6 +91,25 @@ protected:
 
 	void Grab_Completed(const FInputActionValue& Value);
 
+	void Fire_Started(const FInputActionValue& Value);
+
+	void Fire_Triggered(const FInputActionValue& Value);
+
+	void Fire_Completed(const FInputActionValue& Value);
+
+	void Use_Started(const FInputActionValue& Value);
+
+	void Use_Triggered(const FInputActionValue& Value);
+
+	void Use_Completed(const FInputActionValue& Value);
+
+	void AltUse_Started(const FInputActionValue& Value);
+
+	void AltUse_Triggered(const FInputActionValue& Value);
+
+	void AltUse_Completed(const FInputActionValue& Value);
+
+
 	/**
 	 * INPUT ENCAPSULATES (Functions utilized by above subscribers to perform operations)
 	*/
@@ -88,7 +117,10 @@ protected:
 	virtual void Grab(bool Pressed);
 
 public:
-	// PUBLIC GETTERS
+	// PUBLIC GETTERS/SETTERS
+
+	void SetHapticComponents(USphereComponent* Target, UBoxComponent* Collider, UPhysicsConstraintComponent* Constraint);
+	void SetGrabConstraint(UPhysicsConstraintComponent* Constraint);
 	
 	// Return the component used as target for haptic collision
 	USphereComponent* GetHapticTarget();
