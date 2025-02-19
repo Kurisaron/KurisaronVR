@@ -36,18 +36,18 @@ AVRCharacter::AVRCharacter(const FObjectInitializer& ObjectInitializer) : Super(
 	// Create components
 	LeftHandController = CreateDefaultSubobject<UHandControllerComponent>(HandControllerComponentNames[0]);
 	RightHandController = CreateDefaultSubobject<UHandControllerComponent>(HandControllerComponentNames[1]);
-	LeftHandHapticTarget = CreateDefaultSubobject<USphereComponent>(HandHapticTargetComponentNames[0]);
-	RightHandHapticTarget = CreateDefaultSubobject<USphereComponent>(HandHapticTargetComponentNames[1]);
-	LeftHandHapticCollider = CreateDefaultSubobject<UBoxComponent>(HandHapticColliderComponentNames[0]);
-	RightHandHapticCollider = CreateDefaultSubobject<UBoxComponent>(HandHapticColliderComponentNames[1]);
+	LeftHandHapticTarget = CreateDefaultSubobject<USkeletalMeshComponent>(HandHapticTargetComponentNames[0]);
+	RightHandHapticTarget = CreateDefaultSubobject<USkeletalMeshComponent>(HandHapticTargetComponentNames[1]);
+	LeftHandHapticCollider = CreateDefaultSubobject<USkeletalMeshComponent>(HandHapticColliderComponentNames[0]);
+	RightHandHapticCollider = CreateDefaultSubobject<USkeletalMeshComponent>(HandHapticColliderComponentNames[1]);
 	LeftHandHapticConstraint = CreateDefaultSubobject<UPhysicsConstraintComponent>(HandHapticConstraintComponentNames[0]);
 	RightHandHapticConstraint = CreateDefaultSubobject<UPhysicsConstraintComponent>(HandHapticConstraintComponentNames[1]);
 	LeftHandGrabConstraint = CreateDefaultSubobject<UPhysicsConstraintComponent>(HandGrabConstraintComponentNames[0]);
 	RightHandGrabConstraint = CreateDefaultSubobject<UPhysicsConstraintComponent>(HandGrabConstraintComponentNames[1]);
 	// Perform setup operations on hand components
 	UHandControllerComponent* Hands[2] = { LeftHandController, RightHandController };
-	USphereComponent* HapticTargets[2] = { LeftHandHapticTarget, RightHandHapticTarget };
-	UBoxComponent* HapticColliders[2] = { LeftHandHapticCollider, RightHandHapticCollider };
+	USkeletalMeshComponent* HapticTargets[2] = { LeftHandHapticTarget, RightHandHapticTarget };
+	USkeletalMeshComponent* HapticColliders[2] = { LeftHandHapticCollider, RightHandHapticCollider };
 	UPhysicsConstraintComponent* HapticConstraints[2] = { LeftHandHapticConstraint, RightHandHapticConstraint };
 	UPhysicsConstraintComponent* GrabConstraints[2] = { LeftHandGrabConstraint, RightHandGrabConstraint };
 	for (int i = 0; i < 2; i++)
@@ -58,50 +58,68 @@ AVRCharacter::AVRCharacter(const FObjectInitializer& ObjectInitializer) : Super(
 			Hand->SetupAttachment(VR_Origin);
 			Hand->SetTrackingSource(i == 0 ? EControllerHand::Left : EControllerHand::Right);
 
-			if (USphereComponent* Target = HapticTargets[i])
+			if (USkeletalMeshComponent* Target = HapticTargets[i])
 			{
 				// Perform haptic collision target setup
 				Target->SetupAttachment(Hand);
-				Target->SetSphereRadius(4.0f);
+				Target->SetRelativeLocation(FVector(
+					0.0, 
+					i == 0 ? -3.5 : 3.5,
+					7.5));
+				Target->SetRelativeRotation(FRotator(
+					0.0,
+					i == 0 ? 180.0 : 0.0,
+					90.0));
 				Target->SetHiddenInGame(false);
-				Target->SetLineThickness(0.5f);
+				Target->SetCollisionEnabled(ECollisionEnabled::Type::QueryOnly);
+				Target->SetCollisionObjectType(ECollisionChannel::ECC_WorldDynamic);
 
-				if (UBoxComponent* Collider = HapticColliders[i])
+				if (USkeletalMeshComponent* Collider = HapticColliders[i])
 				{
 					// Perform haptic collider setup
 					Collider->SetupAttachment(Target);
-					Collider->SetBoxExtent(FVector::OneVector * 4.0f);
-					Collider->SetSimulatePhysics(true);
 					Collider->SetHiddenInGame(false);
-					Collider->SetLineThickness(0.5f);
+					Collider->SetSimulatePhysics(true);
+					Collider->SetNotifyRigidBodyCollision(true);
+					Collider->SetGenerateOverlapEvents(true);
+					Collider->SetCollisionEnabled(ECollisionEnabled::Type::QueryAndPhysics);
+					Collider->SetCollisionObjectType(ECollisionChannel::ECC_PhysicsBody);
+					Collider->SetCollisionResponseToChannel(ECollisionChannel::ECC_Pawn, ECollisionResponse::ECR_Ignore);
+					Collider->SetUseCCD(true);
+					Collider->bMultiBodyOverlap = true;
 
 					if (UPhysicsConstraintComponent* HapticConstraint = HapticConstraints[i])
 					{
 						// Perform haptic collision physics constraint setup
 						HapticConstraint->SetupAttachment(Target);
-						HapticConstraint->SetRelativeRotation(FRotator(-90.0, 0.0, 0.0));
+						HapticConstraint->SetRelativeRotation(FRotator(
+							0.0,
+							90.0,
+							90.0));
 						HapticConstraint->SetUsingAbsoluteScale(true);
 						HapticConstraint->SetDisableCollision(true);
-						HapticConstraint->SetLinearXLimit(ELinearConstraintMotion::LCM_Free, 0.0f);
-						HapticConstraint->SetLinearYLimit(ELinearConstraintMotion::LCM_Free, 0.0f);
-						HapticConstraint->SetLinearZLimit(ELinearConstraintMotion::LCM_Free, 0.0f);
+						HapticConstraint->SetLinearXLimit(ELinearConstraintMotion::LCM_Limited, 90.0f);
+						HapticConstraint->SetLinearYLimit(ELinearConstraintMotion::LCM_Limited, 90.0f);
+						HapticConstraint->SetLinearZLimit(ELinearConstraintMotion::LCM_Limited, 90.0f);
 						HapticConstraint->SetAngularSwing1Limit(EAngularConstraintMotion::ACM_Locked, 0.0f);
 						HapticConstraint->SetAngularSwing2Limit(EAngularConstraintMotion::ACM_Locked, 0.0f);
 						HapticConstraint->SetAngularTwistLimit(EAngularConstraintMotion::ACM_Locked, 0.0f);
 						FConstraintInstance* ConstraintInstance = &HapticConstraint->ConstraintInstance;
 						ConstraintInstance->SetLinearPositionDrive(true, true, true);
 						ConstraintInstance->SetLinearVelocityDrive(true, true, true);
-						ConstraintInstance->SetLinearDriveParams(10000.0f, 100.0f, 0.0f);
-						HapticConstraint->SetConstrainedComponents(Target, FName(), Collider, FName());
+						ConstraintInstance->SetLinearDriveParams(20000.0f, 200.0f, 0.0f);
+						FName HandBone = HandHapticComponentsBoneNames[i];
 
 						Hand->SetHapticComponents(Target, Collider, HapticConstraint);
+						Hand->SetHapticBone(HandBone);
 					}
 
 					if (UPhysicsConstraintComponent* GrabConstraint = GrabConstraints[i])
 					{
 						// Perform grab physics constraint setup
 						GrabConstraint->SetupAttachment(Collider);
-						GrabConstraint->SetRelativeRotation(FRotator(0.0, i == 0 ? 90.0 : -90.0, 0.0));
+						GrabConstraint->SetRelativeLocation(FVector(0.0, 7.5, -1.75));
+						GrabConstraint->SetRelativeRotation(FRotator(-90.0, 0.0, 0.0));
 						GrabConstraint->SetUsingAbsoluteScale(true);
 						GrabConstraint->SetDisableCollision(true);
 						GrabConstraint->SetLinearXLimit(ELinearConstraintMotion::LCM_Locked, 0.0f);

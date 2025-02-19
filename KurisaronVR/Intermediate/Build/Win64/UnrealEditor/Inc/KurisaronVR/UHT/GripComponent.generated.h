@@ -14,16 +14,16 @@ PRAGMA_DISABLE_DEPRECATION_WARNINGS
 #endif
 #define KURISARONVR_GripComponent_generated_h
 
-#define FID_Github_KurisaronVR_KurisaronVR_Source_KurisaronVR_Public_GripComponent_h_16_INCLASS_NO_PURE_DECLS \
+#define FID_Github_KurisaronVR_KurisaronVR_Source_KurisaronVR_Public_GripComponent_h_15_INCLASS_NO_PURE_DECLS \
 private: \
 	static void StaticRegisterNativesUGripComponent(); \
 	friend struct Z_Construct_UClass_UGripComponent_Statics; \
 public: \
-	DECLARE_CLASS(UGripComponent, UPrimitiveComponent, COMPILED_IN_FLAGS(0 | CLASS_Config), CASTCLASS_None, TEXT("/Script/KurisaronVR"), NO_API) \
+	DECLARE_CLASS(UGripComponent, USceneComponent, COMPILED_IN_FLAGS(0 | CLASS_Config), CASTCLASS_None, TEXT("/Script/KurisaronVR"), NO_API) \
 	DECLARE_SERIALIZER(UGripComponent)
 
 
-#define FID_Github_KurisaronVR_KurisaronVR_Source_KurisaronVR_Public_GripComponent_h_16_ENHANCED_CONSTRUCTORS \
+#define FID_Github_KurisaronVR_KurisaronVR_Source_KurisaronVR_Public_GripComponent_h_15_ENHANCED_CONSTRUCTORS \
 private: \
 	/** Private move- and copy-constructors, should never be used */ \
 	UGripComponent(UGripComponent&&); \
@@ -35,12 +35,12 @@ public: \
 	NO_API virtual ~UGripComponent();
 
 
-#define FID_Github_KurisaronVR_KurisaronVR_Source_KurisaronVR_Public_GripComponent_h_13_PROLOG
-#define FID_Github_KurisaronVR_KurisaronVR_Source_KurisaronVR_Public_GripComponent_h_16_GENERATED_BODY \
+#define FID_Github_KurisaronVR_KurisaronVR_Source_KurisaronVR_Public_GripComponent_h_12_PROLOG
+#define FID_Github_KurisaronVR_KurisaronVR_Source_KurisaronVR_Public_GripComponent_h_15_GENERATED_BODY \
 PRAGMA_DISABLE_DEPRECATION_WARNINGS \
 public: \
-	FID_Github_KurisaronVR_KurisaronVR_Source_KurisaronVR_Public_GripComponent_h_16_INCLASS_NO_PURE_DECLS \
-	FID_Github_KurisaronVR_KurisaronVR_Source_KurisaronVR_Public_GripComponent_h_16_ENHANCED_CONSTRUCTORS \
+	FID_Github_KurisaronVR_KurisaronVR_Source_KurisaronVR_Public_GripComponent_h_15_INCLASS_NO_PURE_DECLS \
+	FID_Github_KurisaronVR_KurisaronVR_Source_KurisaronVR_Public_GripComponent_h_15_ENHANCED_CONSTRUCTORS \
 private: \
 PRAGMA_ENABLE_DEPRECATION_WARNINGS
 

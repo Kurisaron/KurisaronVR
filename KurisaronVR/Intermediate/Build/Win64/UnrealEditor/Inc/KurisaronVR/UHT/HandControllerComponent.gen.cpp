@@ -10,10 +10,10 @@ PRAGMA_DISABLE_DEPRECATION_WARNINGS
 void EmptyLinkFunctionForGeneratedCodeHandControllerComponent() {}
 
 // Begin Cross Module References
+ENGINE_API UClass* Z_Construct_UClass_UPrimitiveComponent_NoRegister();
 ENHANCEDINPUT_API UClass* Z_Construct_UClass_UInputAction_NoRegister();
 ENHANCEDINPUT_API UClass* Z_Construct_UClass_UInputMappingContext_NoRegister();
 HEADMOUNTEDDISPLAY_API UClass* Z_Construct_UClass_UMotionControllerComponent();
-KURISARONVR_API UClass* Z_Construct_UClass_UGripComponent_NoRegister();
 KURISARONVR_API UClass* Z_Construct_UClass_UHandControllerComponent();
 KURISARONVR_API UClass* Z_Construct_UClass_UHandControllerComponent_NoRegister();
 UPackage* Z_Construct_UPackage__Script_KurisaronVR();
@@ -114,12 +114,17 @@ struct Z_Construct_UClass_UHandControllerComponent_Statics
 		{ "Category", "Hand|Input|Pose" },
 		{ "ModuleRelativePath", "Public/HandControllerComponent.h" },
 	};
+	static constexpr UECodeGen_Private::FMetaDataPairParam NewProp_HapticBone_MetaData[] = {
+		{ "AllowPrivateAccess", "true" },
+		{ "Category", "Hand|Haptic Collision" },
+		{ "ModuleRelativePath", "Public/HandControllerComponent.h" },
+	};
 	static constexpr UECodeGen_Private::FMetaDataPairParam NewProp_GrabRadius_MetaData[] = {
 		{ "AllowPrivateAccess", "true" },
 		{ "Category", "Hand|Grab" },
 		{ "ModuleRelativePath", "Public/HandControllerComponent.h" },
 	};
-	static constexpr UECodeGen_Private::FMetaDataPairParam NewProp_GrabbedGrip_MetaData[] = {
+	static constexpr UECodeGen_Private::FMetaDataPairParam NewProp_GrabbedPrimitive_MetaData[] = {
 		{ "AllowPrivateAccess", "true" },
 		{ "Category", "Hand|Grab" },
 		{ "EditInline", "true" },
@@ -159,8 +164,9 @@ struct Z_Construct_UClass_UHandControllerComponent_Statics
 	static const UECodeGen_Private::FObjectPropertyParams NewProp_IndexCurlAction;
 	static const UECodeGen_Private::FObjectPropertyParams NewProp_PointAction;
 	static const UECodeGen_Private::FObjectPropertyParams NewProp_ThumbUpAction;
+	static const UECodeGen_Private::FNamePropertyParams NewProp_HapticBone;
 	static const UECodeGen_Private::FFloatPropertyParams NewProp_GrabRadius;
-	static const UECodeGen_Private::FObjectPropertyParams NewProp_GrabbedGrip;
+	static const UECodeGen_Private::FObjectPropertyParams NewProp_GrabbedPrimitive;
 	static void NewProp_bShowDebug_SetBit(void* Obj);
 	static const UECodeGen_Private::FBoolPropertyParams NewProp_bShowDebug;
 	static void NewProp_bDebugTransform_SetBit(void* Obj);
@@ -188,8 +194,9 @@ const UECodeGen_Private::FObjectPropertyParams Z_Construct_UClass_UHandControlle
 const UECodeGen_Private::FObjectPropertyParams Z_Construct_UClass_UHandControllerComponent_Statics::NewProp_IndexCurlAction = { "IndexCurlAction", nullptr, (EPropertyFlags)0x0144000000000015, UECodeGen_Private::EPropertyGenFlags::Object | UECodeGen_Private::EPropertyGenFlags::ObjectPtr, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(UHandControllerComponent, IndexCurlAction), Z_Construct_UClass_UInputAction_NoRegister, METADATA_PARAMS(UE_ARRAY_COUNT(NewProp_IndexCurlAction_MetaData), NewProp_IndexCurlAction_MetaData) };
 const UECodeGen_Private::FObjectPropertyParams Z_Construct_UClass_UHandControllerComponent_Statics::NewProp_PointAction = { "PointAction", nullptr, (EPropertyFlags)0x0144000000000015, UECodeGen_Private::EPropertyGenFlags::Object | UECodeGen_Private::EPropertyGenFlags::ObjectPtr, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(UHandControllerComponent, PointAction), Z_Construct_UClass_UInputAction_NoRegister, METADATA_PARAMS(UE_ARRAY_COUNT(NewProp_PointAction_MetaData), NewProp_PointAction_MetaData) };
 const UECodeGen_Private::FObjectPropertyParams Z_Construct_UClass_UHandControllerComponent_Statics::NewProp_ThumbUpAction = { "ThumbUpAction", nullptr, (EPropertyFlags)0x0144000000000015, UECodeGen_Private::EPropertyGenFlags::Object | UECodeGen_Private::EPropertyGenFlags::ObjectPtr, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(UHandControllerComponent, ThumbUpAction), Z_Construct_UClass_UInputAction_NoRegister, METADATA_PARAMS(UE_ARRAY_COUNT(NewProp_ThumbUpAction_MetaData), NewProp_ThumbUpAction_MetaData) };
+const UECodeGen_Private::FNamePropertyParams Z_Construct_UClass_UHandControllerComponent_Statics::NewProp_HapticBone = { "HapticBone", nullptr, (EPropertyFlags)0x0040000000000815, UECodeGen_Private::EPropertyGenFlags::Name, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(UHandControllerComponent, HapticBone), METADATA_PARAMS(UE_ARRAY_COUNT(NewProp_HapticBone_MetaData), NewProp_HapticBone_MetaData) };
 const UECodeGen_Private::FFloatPropertyParams Z_Construct_UClass_UHandControllerComponent_Statics::NewProp_GrabRadius = { "GrabRadius", nullptr, (EPropertyFlags)0x0040000000010015, UECodeGen_Private::EPropertyGenFlags::Float, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(UHandControllerComponent, GrabRadius), METADATA_PARAMS(UE_ARRAY_COUNT(NewProp_GrabRadius_MetaData), NewProp_GrabRadius_MetaData) };
-const UECodeGen_Private::FObjectPropertyParams Z_Construct_UClass_UHandControllerComponent_Statics::NewProp_GrabbedGrip = { "GrabbedGrip", nullptr, (EPropertyFlags)0x00400000000a001d, UECodeGen_Private::EPropertyGenFlags::Object, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(UHandControllerComponent, GrabbedGrip), Z_Construct_UClass_UGripComponent_NoRegister, METADATA_PARAMS(UE_ARRAY_COUNT(NewProp_GrabbedGrip_MetaData), NewProp_GrabbedGrip_MetaData) };
+const UECodeGen_Private::FObjectPropertyParams Z_Construct_UClass_UHandControllerComponent_Statics::NewProp_GrabbedPrimitive = { "GrabbedPrimitive", nullptr, (EPropertyFlags)0x00400000000a001d, UECodeGen_Private::EPropertyGenFlags::Object, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(UHandControllerComponent, GrabbedPrimitive), Z_Construct_UClass_UPrimitiveComponent_NoRegister, METADATA_PARAMS(UE_ARRAY_COUNT(NewProp_GrabbedPrimitive_MetaData), NewProp_GrabbedPrimitive_MetaData) };
 void Z_Construct_UClass_UHandControllerComponent_Statics::NewProp_bShowDebug_SetBit(void* Obj)
 {
 	((UHandControllerComponent*)Obj)->bShowDebug = 1;
@@ -220,8 +227,9 @@ const UECodeGen_Private::FPropertyParamsBase* const Z_Construct_UClass_UHandCont
 	(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_UHandControllerComponent_Statics::NewProp_IndexCurlAction,
 	(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_UHandControllerComponent_Statics::NewProp_PointAction,
 	(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_UHandControllerComponent_Statics::NewProp_ThumbUpAction,
+	(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_UHandControllerComponent_Statics::NewProp_HapticBone,
 	(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_UHandControllerComponent_Statics::NewProp_GrabRadius,
-	(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_UHandControllerComponent_Statics::NewProp_GrabbedGrip,
+	(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_UHandControllerComponent_Statics::NewProp_GrabbedPrimitive,
 	(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_UHandControllerComponent_Statics::NewProp_bShowDebug,
 	(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_UHandControllerComponent_Statics::NewProp_bDebugTransform,
 	(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_UHandControllerComponent_Statics::NewProp_bDebugGrabbing,
@@ -267,10 +275,10 @@ UHandControllerComponent::~UHandControllerComponent() {}
 struct Z_CompiledInDeferFile_FID_Github_KurisaronVR_KurisaronVR_Source_KurisaronVR_Public_HandControllerComponent_h_Statics
 {
 	static constexpr FClassRegisterCompiledInInfo ClassInfo[] = {
-		{ Z_Construct_UClass_UHandControllerComponent, UHandControllerComponent::StaticClass, TEXT("UHandControllerComponent"), &Z_Registration_Info_UClass_UHandControllerComponent, CONSTRUCT_RELOAD_VERSION_INFO(FClassReloadVersionInfo, sizeof(UHandControllerComponent), 624335853U) },
+		{ Z_Construct_UClass_UHandControllerComponent, UHandControllerComponent::StaticClass, TEXT("UHandControllerComponent"), &Z_Registration_Info_UClass_UHandControllerComponent, CONSTRUCT_RELOAD_VERSION_INFO(FClassReloadVersionInfo, sizeof(UHandControllerComponent), 4190787492U) },
 	};
 };
-static FRegisterCompiledInInfo Z_CompiledInDeferFile_FID_Github_KurisaronVR_KurisaronVR_Source_KurisaronVR_Public_HandControllerComponent_h_1853142729(TEXT("/Script/KurisaronVR"),
+static FRegisterCompiledInInfo Z_CompiledInDeferFile_FID_Github_KurisaronVR_KurisaronVR_Source_KurisaronVR_Public_HandControllerComponent_h_90631708(TEXT("/Script/KurisaronVR"),
 	Z_CompiledInDeferFile_FID_Github_KurisaronVR_KurisaronVR_Source_KurisaronVR_Public_HandControllerComponent_h_Statics::ClassInfo, UE_ARRAY_COUNT(Z_CompiledInDeferFile_FID_Github_KurisaronVR_KurisaronVR_Source_KurisaronVR_Public_HandControllerComponent_h_Statics::ClassInfo),
 	nullptr, 0,
 	nullptr, 0);

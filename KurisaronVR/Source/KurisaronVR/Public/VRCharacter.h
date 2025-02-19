@@ -8,9 +8,7 @@
 #include "EnhancedInputComponent.h"
 #include "GameFramework/Character.h"
 #include "Camera/CameraComponent.h"
-#include "Components/BoxComponent.h"
 #include "Components/CapsuleComponent.h"
-#include "Components/SphereComponent.h"
 #include "PhysicsEngine/PhysicsConstraintComponent.h"
 #include "HeadMountedDisplayTypes.h"
 #include "IXRTrackingSystem.h"
@@ -43,17 +41,17 @@ class KURISARONVR_API AVRCharacter : public ACharacter
 
 	// Component used as target by the left hand's physics constraint that drives haptic collision
 	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "VR|Hands|Haptic Collision", meta = (AllowPrivateAccess = "true"))
-	TObjectPtr<USphereComponent> LeftHandHapticTarget;
+	TObjectPtr<USkeletalMeshComponent> LeftHandHapticTarget;
 	// Component used as target by the right hand's physics constraint that drives haptic collision
 	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "VR|Hands|Haptic Collision", meta = (AllowPrivateAccess = "true"))
-	TObjectPtr<USphereComponent> RightHandHapticTarget;
+	TObjectPtr<USkeletalMeshComponent> RightHandHapticTarget;
 
 	// Collider used by the left hand to ensure haptic collision
 	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "VR|Hands|Haptic Collision", meta = (AllowPrivateAccess = "true"))
-	TObjectPtr<UBoxComponent> LeftHandHapticCollider;
+	TObjectPtr<USkeletalMeshComponent> LeftHandHapticCollider;
 	// Collider used by the right hand to ensure haptic collision
 	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "VR|Hands|Haptic Collision", meta = (AllowPrivateAccess = "true"))
-	TObjectPtr<UBoxComponent> RightHandHapticCollider;
+	TObjectPtr<USkeletalMeshComponent> RightHandHapticCollider;
 
 	// Physics constraint used to pull the left hand's haptic collider toward its target
 	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "VR|Hands|Haptic Collision", meta = (AllowPrivateAccess = "true"))
@@ -77,6 +75,7 @@ protected:
 	const FName HandHapticTargetComponentNames[2] = { TEXT("LH_HapticTarget"), TEXT("RH_HapticTarget") };
 	const FName HandHapticColliderComponentNames[2] = { TEXT("LH_HapticCollider"), TEXT("RH_HapticCollider") };
 	const FName HandHapticConstraintComponentNames[2] = { TEXT("LH_HapticConstraint"), TEXT("RH_HapticConstraint") };
+	const FName HandHapticComponentsBoneNames[2] = { TEXT("hand_l"), TEXT("hand_r") };
 	const FName HandGrabConstraintComponentNames[2] = { TEXT("LH_GrabConstraint"), TEXT("RH_GrabConstraint") };
 
 public:

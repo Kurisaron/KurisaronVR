@@ -22,8 +22,8 @@ class KURISARONVR_API UHandControllerComponent : public UMotionControllerCompone
 {
 	GENERATED_BODY()
 
-	USphereComponent* HapticTarget;
-	UBoxComponent* HapticCollider;
+	USkeletalMeshComponent* HapticTarget;
+	USkeletalMeshComponent* HapticCollider;
 	UPhysicsConstraintComponent* HapticConstraint;
 	UPhysicsConstraintComponent* GrabConstraint;
 	
@@ -59,10 +59,13 @@ class KURISARONVR_API UHandControllerComponent : public UMotionControllerCompone
 	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Hand|Input|Pose", meta = (AllowPrivateAccess = "true"))
 	TObjectPtr<UInputAction> ThumbUpAction;
 
+	UPROPERTY(EditInstanceOnly, BlueprintReadOnly, Category = "Hand|Haptic Collision", meta = (AllowPrivateAccess = "true"))
+	FName HapticBone;
+
 	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category = "Hand|Grab", meta = (AllowPrivateAccess = "true"))
 	float GrabRadius;
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "Hand|Grab", meta = (AllowPrivateAccess = "true"))
-	UGripComponent* GrabbedGrip;
+	UPrimitiveComponent* GrabbedPrimitive;
 
 	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category = "Hand|Debug", meta = (AllowPrivateAccess = "true"))
 	bool bShowDebug;
@@ -74,6 +77,12 @@ class KURISARONVR_API UHandControllerComponent : public UMotionControllerCompone
 public:
 
 	UHandControllerComponent(const FObjectInitializer& ObjectInitializer = FObjectInitializer::Get());
+
+protected:
+
+	virtual void BeginPlay() override;
+
+public:
 
 	virtual void SetupPlayerInput(UEnhancedInputLocalPlayerSubsystem* Subsystem, UEnhancedInputComponent* EnhancedInput);
 
@@ -119,13 +128,14 @@ protected:
 public:
 	// PUBLIC GETTERS/SETTERS
 
-	void SetHapticComponents(USphereComponent* Target, UBoxComponent* Collider, UPhysicsConstraintComponent* Constraint);
+	void SetHapticComponents(USkeletalMeshComponent* Target, USkeletalMeshComponent* Collider, UPhysicsConstraintComponent* Constraint);
+	void SetHapticBone(FName Bone);
 	void SetGrabConstraint(UPhysicsConstraintComponent* Constraint);
 	
 	// Return the component used as target for haptic collision
-	USphereComponent* GetHapticTarget();
+	USkeletalMeshComponent* GetHapticTarget();
 	// Return the collider used for haptic collision
-	UBoxComponent* GetHapticCollider();
+	USkeletalMeshComponent* GetHapticCollider();
 	// Return the physics constraint used to drive forces for haptic collision
 	UPhysicsConstraintComponent* GetHapticConstraint();
 	// Return the physics constraint used for grabbing

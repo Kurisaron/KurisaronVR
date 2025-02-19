@@ -6,7 +6,7 @@
 UGripComponent::UGripComponent(const FObjectInitializer& ObjectInitializer) : Super(ObjectInitializer)
 {
 	bCanGrab = true;
-	bSnapOnGrab = true;
+	bCanTelegrab = true;
 }
 
 bool UGripComponent::CanGrab()
@@ -14,9 +14,9 @@ bool UGripComponent::CanGrab()
 	return bCanGrab;
 }
 
-bool UGripComponent::SnapOnGrab()
+bool UGripComponent::CanTelegrab()
 {
-	return bSnapOnGrab;
+	return bCanTelegrab;
 }
 
 UHapticFeedbackEffect_Base* UGripComponent::GetGrabHapticEffect()

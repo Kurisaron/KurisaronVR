@@ -14,7 +14,7 @@ PRAGMA_DISABLE_DEPRECATION_WARNINGS
 #endif
 #define KURISARONVR_VRCharacter_generated_h
 
-#define FID_Github_KurisaronVR_KurisaronVR_Source_KurisaronVR_Public_VRCharacter_h_28_INCLASS_NO_PURE_DECLS \
+#define FID_Github_KurisaronVR_KurisaronVR_Source_KurisaronVR_Public_VRCharacter_h_26_INCLASS_NO_PURE_DECLS \
 private: \
 	static void StaticRegisterNativesAVRCharacter(); \
 	friend struct Z_Construct_UClass_AVRCharacter_Statics; \
@@ -23,7 +23,7 @@ public: \
 	DECLARE_SERIALIZER(AVRCharacter)
 
 
-#define FID_Github_KurisaronVR_KurisaronVR_Source_KurisaronVR_Public_VRCharacter_h_28_ENHANCED_CONSTRUCTORS \
+#define FID_Github_KurisaronVR_KurisaronVR_Source_KurisaronVR_Public_VRCharacter_h_26_ENHANCED_CONSTRUCTORS \
 private: \
 	/** Private move- and copy-constructors, should never be used */ \
 	AVRCharacter(AVRCharacter&&); \
@@ -35,12 +35,12 @@ public: \
 	NO_API virtual ~AVRCharacter();
 
 
-#define FID_Github_KurisaronVR_KurisaronVR_Source_KurisaronVR_Public_VRCharacter_h_25_PROLOG
-#define FID_Github_KurisaronVR_KurisaronVR_Source_KurisaronVR_Public_VRCharacter_h_28_GENERATED_BODY \
+#define FID_Github_KurisaronVR_KurisaronVR_Source_KurisaronVR_Public_VRCharacter_h_23_PROLOG
+#define FID_Github_KurisaronVR_KurisaronVR_Source_KurisaronVR_Public_VRCharacter_h_26_GENERATED_BODY \
 PRAGMA_DISABLE_DEPRECATION_WARNINGS \
 public: \
-	FID_Github_KurisaronVR_KurisaronVR_Source_KurisaronVR_Public_VRCharacter_h_28_INCLASS_NO_PURE_DECLS \
-	FID_Github_KurisaronVR_KurisaronVR_Source_KurisaronVR_Public_VRCharacter_h_28_ENHANCED_CONSTRUCTORS \
+	FID_Github_KurisaronVR_KurisaronVR_Source_KurisaronVR_Public_VRCharacter_h_26_INCLASS_NO_PURE_DECLS \
+	FID_Github_KurisaronVR_KurisaronVR_Source_KurisaronVR_Public_VRCharacter_h_26_ENHANCED_CONSTRUCTORS \
 private: \
 PRAGMA_ENABLE_DEPRECATION_WARNINGS
 
