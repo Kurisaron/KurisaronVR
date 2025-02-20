@@ -13,6 +13,7 @@ UHandControllerComponent::UHandControllerComponent(const FObjectInitializer& Obj
 	FireInput = 0.0f;
 	UseInput = 0.0f;
 	AltUseInput = 0.0f;
+	HandPose = FHandPose();
 
 	GrabRadius = 15.0f;
 
@@ -39,9 +40,16 @@ void UHandControllerComponent::SetupPlayerInput(UEnhancedInputLocalPlayerSubsyst
 
 	if (EnhancedInput)
 	{
+		// Bind subscribers to grab input action
 		EnhancedInput->BindAction(GrabAction, ETriggerEvent::Started, this, &UHandControllerComponent::Grab_Started);
 		EnhancedInput->BindAction(GrabAction, ETriggerEvent::Triggered, this, &UHandControllerComponent::Grab_Triggered);
 		EnhancedInput->BindAction(GrabAction, ETriggerEvent::Completed, this, &UHandControllerComponent::Grab_Completed);
+
+		// Bind subscribers to pose input actions
+		EnhancedInput->BindAction(GraspAction, ETriggerEvent::Triggered, this, &UHandControllerComponent::Pose_Grasp);
+		EnhancedInput->BindAction(IndexCurlAction, ETriggerEvent::Triggered, this, &UHandControllerComponent::Pose_IndexCurl);
+		EnhancedInput->BindAction(PointAction, ETriggerEvent::Triggered, this, &UHandControllerComponent::Pose_Point);
+		EnhancedInput->BindAction(ThumbUpAction, ETriggerEvent::Triggered, this, &UHandControllerComponent::Pose_ThumbUp);
 	}
 }
 
@@ -114,6 +122,26 @@ void UHandControllerComponent::AltUse_Triggered(const FInputActionValue& Value)
 void UHandControllerComponent::AltUse_Completed(const FInputActionValue& Value)
 {
 	AltUseInput = Value.Get<float>();
+}
+
+void UHandControllerComponent::Pose_Grasp(const FInputActionValue& Value)
+{
+	HandPose.Grasp = Value.Get<float>();
+}
+
+void UHandControllerComponent::Pose_IndexCurl(const FInputActionValue& Value)
+{
+	HandPose.IndexCurl = Value.Get<float>();
+}
+
+void UHandControllerComponent::Pose_Point(const FInputActionValue& Value)
+{
+	HandPose.Point = Value.Get<float>();
+}
+
+void UHandControllerComponent::Pose_ThumbUp(const FInputActionValue& Value)
+{
+	HandPose.ThumbUp = Value.Get<float>();
 }
 
 void UHandControllerComponent::Grab(bool Pressed)

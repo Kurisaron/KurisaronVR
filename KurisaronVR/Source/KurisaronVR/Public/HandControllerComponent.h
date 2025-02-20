@@ -14,6 +14,26 @@
 
 class UGripComponent;
 
+USTRUCT(BlueprintType)
+struct KURISARONVR_API FHandPose
+{
+	GENERATED_BODY()
+
+	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, meta = (AllowPrivateAccess = "true"))
+	float Grasp;
+	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, meta = (AllowPrivateAccess = "true"))
+	float IndexCurl;
+	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, meta = (AllowPrivateAccess = "true"))
+	float Point;
+	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, meta = (AllowPrivateAccess = "true"))
+	float ThumbUp;
+
+	FHandPose()
+	{
+		Grasp = IndexCurl = Point = ThumbUp = 0.0;
+	}
+};
+
 /**
  * 
  */
@@ -40,6 +60,14 @@ class KURISARONVR_API UHandControllerComponent : public UMotionControllerCompone
 	TObjectPtr<UInputAction> UseAction;
 	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Hand|Input|Interaction", meta = (AllowPrivateAccess = "true"))
 	TObjectPtr<UInputAction> AltUseAction;
+	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Hand|Input|Pose", meta = (AllowPrivateAccess = "true"))
+	TObjectPtr<UInputAction> GraspAction;
+	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Hand|Input|Pose", meta = (AllowPrivateAccess = "true"))
+	TObjectPtr<UInputAction> IndexCurlAction;
+	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Hand|Input|Pose", meta = (AllowPrivateAccess = "true"))
+	TObjectPtr<UInputAction> PointAction;
+	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Hand|Input|Pose", meta = (AllowPrivateAccess = "true"))
+	TObjectPtr<UInputAction> ThumbUpAction;
 
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "Hand|Input|Interaction", meta = (AllowPrivateAccess = "true"))
 	float GrabInput;
@@ -49,15 +77,8 @@ class KURISARONVR_API UHandControllerComponent : public UMotionControllerCompone
 	float UseInput;
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "Hand|Input|Interaction", meta = (AllowPrivateAccess = "true"))
 	float AltUseInput;
-
-	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Hand|Input|Pose", meta = (AllowPrivateAccess = "true"))
-	TObjectPtr<UInputAction> GraspAction;
-	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Hand|Input|Pose", meta = (AllowPrivateAccess = "true"))
-	TObjectPtr<UInputAction> IndexCurlAction;
-	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Hand|Input|Pose", meta = (AllowPrivateAccess = "true"))
-	TObjectPtr<UInputAction> PointAction;
-	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Hand|Input|Pose", meta = (AllowPrivateAccess = "true"))
-	TObjectPtr<UInputAction> ThumbUpAction;
+	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "Hand|Input|Pose", meta = (AllowPrivateAccess = "true"))
+	FHandPose HandPose;
 
 	UPROPERTY(EditInstanceOnly, BlueprintReadOnly, Category = "Hand|Haptic Collision", meta = (AllowPrivateAccess = "true"))
 	FName HapticBone;
@@ -117,6 +138,14 @@ protected:
 	void AltUse_Triggered(const FInputActionValue& Value);
 
 	void AltUse_Completed(const FInputActionValue& Value);
+
+	void Pose_Grasp(const FInputActionValue& Value);
+
+	void Pose_IndexCurl(const FInputActionValue& Value);
+
+	void Pose_Point(const FInputActionValue& Value);
+
+	void Pose_ThumbUp(const FInputActionValue& Value);
 
 
 	/**

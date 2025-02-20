@@ -11,21 +11,36 @@ AVRCharacter::AVRCharacter(const FObjectInitializer& ObjectInitializer) : Super(
  	// Set this character to call Tick() every frame
 	PrimaryActorTick.bCanEverTick = true;
 
+	// Only allow the controller's yaw input to influence this character's rotation
+	bUseControllerRotationPitch = false;
+	bUseControllerRotationYaw = true;
+	bUseControllerRotationRoll = false;
+
 	// Set the movement capsule size to allow for effective movement
 	UCapsuleComponent* Capsule = GetCapsuleComponent();
 	Capsule->InitCapsuleSize(10.0f, 90.0f);
 	Capsule->SetHiddenInGame(false);
 	Capsule->SetLineThickness(0.5f);
 
-	// Only allow the controller's yaw input to influence this character's rotation
-	bUseControllerRotationPitch = false;
-	bUseControllerRotationYaw = true;
-	bUseControllerRotationRoll = false;
+	USkeletalMeshComponent* CharacterMesh = GetMesh();
+	CharacterMesh->SetRelativeLocation(FVector(
+		0.0,
+		0.0,
+		-90.0));
+	CharacterMesh->SetRelativeRotation(FRotator(
+		0.0,
+		-90.0,
+		0.0
+	));
+	CharacterMesh->SetHiddenInGame(true);
 
 	// VR TRACKING ORIGIN
 	VR_Origin = CreateDefaultSubobject<USceneComponent>(VR_OriginComponentName);
 	VR_Origin->SetupAttachment(Capsule);
-	VR_Origin->SetRelativeLocation(FVector(0.0, 0.0, -90.0));
+	VR_Origin->SetRelativeLocation(FVector(
+		0.0,
+		0.0,
+		-90.0));
 
 	// HEAD-MOUNTED DISPLAY CAMERA
 	HMD_Camera = CreateDefaultSubobject<UCameraComponent>(HMD_CameraComponentName);
@@ -44,6 +59,7 @@ AVRCharacter::AVRCharacter(const FObjectInitializer& ObjectInitializer) : Super(
 	RightHandHapticConstraint = CreateDefaultSubobject<UPhysicsConstraintComponent>(HandHapticConstraintComponentNames[1]);
 	LeftHandGrabConstraint = CreateDefaultSubobject<UPhysicsConstraintComponent>(HandGrabConstraintComponentNames[0]);
 	RightHandGrabConstraint = CreateDefaultSubobject<UPhysicsConstraintComponent>(HandGrabConstraintComponentNames[1]);
+	
 	// Perform setup operations on hand components
 	UHandControllerComponent* Hands[2] = { LeftHandController, RightHandController };
 	USkeletalMeshComponent* HapticTargets[2] = { LeftHandHapticTarget, RightHandHapticTarget };
@@ -52,18 +68,24 @@ AVRCharacter::AVRCharacter(const FObjectInitializer& ObjectInitializer) : Super(
 	UPhysicsConstraintComponent* GrabConstraints[2] = { LeftHandGrabConstraint, RightHandGrabConstraint };
 	for (int i = 0; i < 2; i++)
 	{
-		if (UHandControllerComponent* Hand = Hands[i])
+		UHandControllerComponent* Hand = Hands[i];
+		USkeletalMeshComponent* Target = HapticTargets[i];
+		USkeletalMeshComponent* Collider = HapticColliders[i];
+		UPhysicsConstraintComponent* HapticConstraint = HapticConstraints[i];
+		UPhysicsConstraintComponent* GrabConstraint = GrabConstraints[i];
+
+		if (Hand)
 		{
 			// Perform hand controller setup
 			Hand->SetupAttachment(VR_Origin);
 			Hand->SetTrackingSource(i == 0 ? EControllerHand::Left : EControllerHand::Right);
 
-			if (USkeletalMeshComponent* Target = HapticTargets[i])
+			if (Target)
 			{
 				// Perform haptic collision target setup
 				Target->SetupAttachment(Hand);
 				Target->SetRelativeLocation(FVector(
-					0.0, 
+					0.0,
 					i == 0 ? -3.5 : 3.5,
 					7.5));
 				Target->SetRelativeRotation(FRotator(
@@ -74,7 +96,7 @@ AVRCharacter::AVRCharacter(const FObjectInitializer& ObjectInitializer) : Super(
 				Target->SetCollisionEnabled(ECollisionEnabled::Type::QueryOnly);
 				Target->SetCollisionObjectType(ECollisionChannel::ECC_WorldDynamic);
 
-				if (USkeletalMeshComponent* Collider = HapticColliders[i])
+				if (Collider)
 				{
 					// Perform haptic collider setup
 					Collider->SetupAttachment(Target);
@@ -88,7 +110,7 @@ AVRCharacter::AVRCharacter(const FObjectInitializer& ObjectInitializer) : Super(
 					Collider->SetUseCCD(true);
 					Collider->bMultiBodyOverlap = true;
 
-					if (UPhysicsConstraintComponent* HapticConstraint = HapticConstraints[i])
+					if (HapticConstraint)
 					{
 						// Perform haptic collision physics constraint setup
 						HapticConstraint->SetupAttachment(Target);
@@ -114,7 +136,7 @@ AVRCharacter::AVRCharacter(const FObjectInitializer& ObjectInitializer) : Super(
 						Hand->SetHapticBone(HandBone);
 					}
 
-					if (UPhysicsConstraintComponent* GrabConstraint = GrabConstraints[i])
+					if (GrabConstraint)
 					{
 						// Perform grab physics constraint setup
 						GrabConstraint->SetupAttachment(Collider);
@@ -133,6 +155,13 @@ AVRCharacter::AVRCharacter(const FObjectInitializer& ObjectInitializer) : Super(
 					}
 				}
 			}
+
+			/*
+			if (UPhysicsConstraintComponent* GrabConstraint = GrabConstraints[i])
+			{
+				
+			}
+			*/
 		}
 	}
 
@@ -144,6 +173,7 @@ void AVRCharacter::BeginPlay()
 	Super::BeginPlay();
 
 	BeginVR();
+
 
 }
 

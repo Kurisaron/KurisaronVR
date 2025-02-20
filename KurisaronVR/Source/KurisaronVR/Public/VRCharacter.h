@@ -9,6 +9,7 @@
 #include "GameFramework/Character.h"
 #include "Camera/CameraComponent.h"
 #include "Components/CapsuleComponent.h"
+#include "PhysicsEngine/PhysicalAnimationComponent.h"
 #include "PhysicsEngine/PhysicsConstraintComponent.h"
 #include "HeadMountedDisplayTypes.h"
 #include "IXRTrackingSystem.h"
@@ -66,6 +67,7 @@ class KURISARONVR_API AVRCharacter : public ACharacter
 	// Physics constraint used by the right hand to grab
 	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "VR|Hands|Grabbing", meta = (AllowPrivateAccess = "true"))
 	TObjectPtr<UPhysicsConstraintComponent> RightHandGrabConstraint;
+
 
 protected:
 

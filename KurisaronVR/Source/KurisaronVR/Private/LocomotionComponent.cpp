@@ -66,6 +66,7 @@ void ULocomotionComponent::TickRoomscaleTracking()
 		USceneComponent* VR_Origin = VR_Character->GetVROrigin();
 		UCameraComponent* HMD_Camera = VR_Character->GetHMDCamera();
 		UCapsuleComponent* LocomotionCapsule = VR_Character->GetCapsuleComponent();
+		USkeletalMeshComponent* CharacterMesh = VR_Character->GetMesh();
 
 		// Fetch transform-related data for determining necessary changes
 		FTransform OriginTransform = VR_Origin->GetComponentTransform();
@@ -82,7 +83,11 @@ void ULocomotionComponent::TickRoomscaleTracking()
 		float HeightDelta = GetCurrentHeight();
 		float NewHalfHeight = HeightDelta / 2;
 		LocomotionCapsule->SetCapsuleHalfHeight(NewHalfHeight, true);
-		VR_Origin->SetRelativeLocation(FVector(VR_Origin->GetRelativeLocation().X, VR_Origin->GetRelativeLocation().Y, -NewHalfHeight));
+		VR_Origin->SetRelativeLocation(FVector(
+			VR_Origin->GetRelativeLocation().X,
+			VR_Origin->GetRelativeLocation().Y,
+			-NewHalfHeight
+		));
 
 		// Perform in-game debug operations if enabled
 		if (bDebugRoomscale)
